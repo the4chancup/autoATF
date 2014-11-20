@@ -241,7 +241,9 @@ namespace ATF_test
                 return false;
             }
 
-            
+            // Parse the Input Check switch
+            input_switch = ini.IniReadValue("Input", "Official_Teams_Only");
+            if (input_switch.Equals("1")) { switches.input_check = true; }
 
             // Parse the checker switches
             // Check stats

@@ -23,6 +23,21 @@ namespace ATF_test
             }
         }
 
+        static bool _input_check;
+
+        public static bool input_check
+        {
+            get
+            {
+                return _input_check;
+            }
+            set
+            {
+                _input_check = value;
+            }
+        }
+
+
         static bool _enable_stats_check;
         static bool _enable_form_check;
         static bool _enable_weakfoot_check;
@@ -353,10 +368,9 @@ namespace ATF_test
                 {
                     is_4cc_team = true;
                 }
-
             }
 
-            if(is_4cc_team == false)
+            if(switches.input_check == true && is_4cc_team == false)
             {
                 Console.WriteLine("ERROR: That is not a valid 4cc team");
                 Console.WriteLine();
