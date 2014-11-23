@@ -81,128 +81,134 @@ namespace ATF_test
                 }
             }
 
-            // Check for too many players in a height bracket
-            if (bracket_1 > constants.height_bracket_1_limit)
+             // Is height_abuse_brackets enabled?
+            if (switches.enable_height_abuse_bracket_check)
             {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_1 + "-" + constants.height_maximum_4cc + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_1 + " out of " + constants.height_bracket_1_limit + ")");
-                variables.errors++;
+                // Check for too many players in a height bracket
+                if (bracket_1 > constants.height_bracket_1_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_1 + "-" + constants.height_maximum_4cc + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_1 + " out of " + constants.height_bracket_1_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_2 > constants.height_bracket_2_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_2 + "-" + (constants.height_bracket_1 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_2 + " out of " + constants.height_bracket_2_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_3 > constants.height_bracket_3_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_3 + "-" + (constants.height_bracket_2 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_3 + " out of " + constants.height_bracket_3_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_4 > constants.height_bracket_4_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_4 + "-" + (constants.height_bracket_3 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_4 + " out of " + constants.height_bracket_4_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_5 > constants.height_bracket_5_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_5 + "-" + (constants.height_bracket_4 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_5 + " out of " + constants.height_bracket_5_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_6 > constants.height_bracket_6_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_6 + "-" + (constants.height_bracket_5 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_6 + " out of " + constants.height_bracket_6_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_7 > constants.height_bracket_7_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_6 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_7 + " out of " + constants.height_bracket_7_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_8 > constants.height_bracket_8_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_8 + "-" + (constants.height_bracket_7 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_8 + " out of " + constants.height_bracket_8_limit + ")");
+                    variables.errors++;
+                }
+
+
+                // Check for too few players in a height bracket
+                if (bracket_1 < constants.height_bracket_1_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_1 + "-" + constants.height_maximum_4cc + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_1 + " out of " + constants.height_bracket_1_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_2 < constants.height_bracket_2_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_2 + "-" + (constants.height_bracket_1 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_2 + " out of " + constants.height_bracket_2_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_3 < constants.height_bracket_3_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_3 + "-" + (constants.height_bracket_2 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_3 + " out of " + constants.height_bracket_3_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_4 < constants.height_bracket_4_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_4 + "-" + (constants.height_bracket_3 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_4 + " out of " + constants.height_bracket_4_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_5 < constants.height_bracket_5_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_5 + "-" + (constants.height_bracket_4 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_5 + " out of " + constants.height_bracket_5_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_6 < constants.height_bracket_6_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_6 + "-" + (constants.height_bracket_5 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_6 + " out of " + constants.height_bracket_6_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_7 < constants.height_bracket_7_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_6 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_7 + " out of " + constants.height_bracket_7_limit + ")");
+                    variables.errors++;
+                }
+
+                if (bracket_8 < constants.height_bracket_8_limit)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_8 + "-" + (constants.height_bracket_7 - 1) + " bracket");
+                    Console.WriteLine("\t\t (Has " + bracket_8 + " out of " + constants.height_bracket_8_limit + ")");
+                    variables.errors++;
+                }
             }
 
-            if (bracket_2 > constants.height_bracket_2_limit)
+            if (switches.enable_height_abuse_sum_check == true)
             {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_2 + "-" + (constants.height_bracket_1 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_2 + " out of " + constants.height_bracket_2_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_3 > constants.height_bracket_3_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_3 + "-" + (constants.height_bracket_2 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_3 + " out of " + constants.height_bracket_3_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_4 > constants.height_bracket_4_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_4 + "-" + (constants.height_bracket_3 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_4 + " out of " + constants.height_bracket_4_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_5 > constants.height_bracket_5_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_5 + "-" + (constants.height_bracket_4 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_5 + " out of " + constants.height_bracket_5_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_6 > constants.height_bracket_6_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_6 + "-" + (constants.height_bracket_5 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_6 + " out of " + constants.height_bracket_6_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_7 > constants.height_bracket_7_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_6 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_7 + " out of " + constants.height_bracket_7_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_8 > constants.height_bracket_8_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players in the " + constants.height_bracket_8 + "-" + (constants.height_bracket_7 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_8 + " out of " + constants.height_bracket_8_limit + ")");
-                variables.errors++;
-            }
-
-
-            // Check for too few players in a height bracket
-            if (bracket_1 < constants.height_bracket_1_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_1 + "-" + constants.height_maximum_4cc + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_1 + " out of " + constants.height_bracket_1_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_2 < constants.height_bracket_2_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_2 + "-" + (constants.height_bracket_1 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_2 + " out of " + constants.height_bracket_2_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_3 < constants.height_bracket_3_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_3 + "-" + (constants.height_bracket_2 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_3 + " out of " + constants.height_bracket_3_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_4 < constants.height_bracket_4_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_4 + "-" + (constants.height_bracket_3 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_4 + " out of " + constants.height_bracket_4_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_5 < constants.height_bracket_5_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_5 + "-" + (constants.height_bracket_4 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_5 + " out of " + constants.height_bracket_5_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_6 < constants.height_bracket_6_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_6 + "-" + (constants.height_bracket_5 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_6 + " out of " + constants.height_bracket_6_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_7 < constants.height_bracket_7_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_6 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_7 + " out of " + constants.height_bracket_7_limit + ")");
-                variables.errors++;
-            }
-
-            if (bracket_8 < constants.height_bracket_8_limit)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_8 + "-" + (constants.height_bracket_7 - 1) + " bracket");
-                Console.WriteLine("\t\t (Has " + bracket_8 + " out of " + constants.height_bracket_8_limit + ")");
-                variables.errors++;
-            }
-
-
-            // Check total team height
-            if (height_total > constants.height_limit_total)
-            {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.height_limit_total);
-                Console.WriteLine("\t\t (Has " + height_total + " out of " + constants.height_limit_total + ")");
-                variables.errors++;
+                // Check total team height
+                if (height_total > constants.height_limit_total)
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.height_limit_total);
+                    Console.WriteLine("\t\t (Has " + height_total + " out of " + constants.height_limit_total + ")");
+                    variables.errors++;
+                }
             }
         }
     }

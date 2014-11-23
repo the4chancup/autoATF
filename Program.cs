@@ -49,7 +49,8 @@ namespace ATF_test
         static bool _enable_captaincy_card_check;
         static bool _enable_player_count_check;
         static bool _enable_ggss_check;
-        static bool _enable_height_abuse_check;
+        static bool _enable_height_abuse_bracket_check;
+        static bool _enable_height_abuse_sum_check;
 
         public static bool enable_stats_check
         {
@@ -172,15 +173,26 @@ namespace ATF_test
                 _enable_ggss_check = value;
             }
         }
-        public static bool enable_height_abuse_check
+        public static bool enable_height_abuse_bracket_check
         {
             get
             {
-                return _enable_height_abuse_check;
+                return _enable_height_abuse_bracket_check;
             }
             set
             {
-                _enable_height_abuse_check = value;
+                _enable_height_abuse_bracket_check = value;
+            }
+        }
+        public static bool enable_height_abuse_sum_check
+        {
+            get
+            {
+                return _enable_height_abuse_sum_check;
+            }
+            set
+            {
+                _enable_height_abuse_sum_check = value;
             }
         }
     }
@@ -464,8 +476,8 @@ namespace ATF_test
                 // Check Captaincy cards
                 if (switches.enable_captaincy_card_check) { Check_Cards.check_cards_captaincy(squad); }
 
-                // Check Height Abuse
-                if (switches.enable_height_abuse_check) { Height_Abuse.check_height_abuse(squad); }
+                // Check Height Abuse - Switch is in function
+                Height_Abuse.check_height_abuse(squad);
 
                 // Checking finished
                 // Are there any errors?

@@ -280,8 +280,11 @@ namespace ATF_test
             input_switch = ini.IniReadValue("Checkers", "GGSS");
             if (input_switch.Equals("1")) { switches.enable_ggss_check = true; }
 
-            input_switch = ini.IniReadValue("Checkers", "Height_Abuse");
-            if (input_switch.Equals("1")) { switches.enable_height_abuse_check = true; }
+            input_switch = ini.IniReadValue("Checkers", "Height_Abuse_Brackets");
+            if (input_switch.Equals("1")) { switches.enable_height_abuse_bracket_check = true; }
+
+            input_switch = ini.IniReadValue("Checkers", "Height_Abuse_Sum");
+            if (input_switch.Equals("1")) { switches.enable_height_abuse_sum_check = true; }
 
             Console.Write("\tComplete!");
             Console.WriteLine();
