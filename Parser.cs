@@ -174,6 +174,11 @@ namespace ATF_test
         [FieldIgnored()]        public bool is_regular;
         [FieldIgnored()]        public bool is_goalkeeper;
 
+        [FieldIgnored()]        public bool is_gold_system1;
+        [FieldIgnored()]        public bool is_silver_system1;
+        [FieldIgnored()]        public bool is_regular_system1;
+        [FieldIgnored()]        public bool is_goalkeeper_system1;
+
         [FieldIgnored()]        public bool is_defender;
         [FieldIgnored()]        public bool is_midfielder;
         [FieldIgnored()]        public bool is_striker;

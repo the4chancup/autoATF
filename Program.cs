@@ -228,6 +228,12 @@ namespace ATF_test
         public const uint stats_regular    = 77;
         public const uint stats_goalkeeper = 70;
 
+        // New height abuse rules call for a -6 stat nerf if above 190cm
+        public const uint stats_gold_system1       = 93;
+        public const uint stats_silver_system1     = 82;
+        public const uint stats_regular_system1    = 71;
+        public const uint stats_goalkeeper_system1 = 64;
+
         public const uint form_gold        = 8;
         public const uint form_silver      = 8;
         public const uint form_regular     = 5;
@@ -258,6 +264,7 @@ namespace ATF_test
 
         public const uint height_maximum_pes        = 210;
         public const uint height_maximum_4cc        = 205;
+
         public const uint height_bracket_1          = 200;
         public const uint height_bracket_2          = 195;
         public const uint height_bracket_3          = 190;
@@ -268,16 +275,26 @@ namespace ATF_test
         public const uint height_bracket_8          = 165;
         public const uint height_minimum_pes        = 148;
 
-        public const uint height_bracket_1_limit    = 1;
-        public const uint height_bracket_2_limit    = 1;
-        public const uint height_bracket_3_limit    = 2;
-        public const uint height_bracket_4_limit    = 6;
+        // Height Abuse
+        // System 1
+        public const uint system1_height_bracket_1_limit = 1;
+        public const uint system1_height_bracket_2_limit = 1;
+        public const uint system1_height_bracket_3_limit = 2;
+        public const uint system1_height_bracket_4_limit = 6;
+        public const uint system1_height_limit_total = 4200;
+        
+        // System 2
+        public const uint system2_height_bracket_1_limit = 0;
+        public const uint system2_height_bracket_2_limit = 0;
+        public const uint system2_height_bracket_3_limit = 0;
+        public const uint system2_height_bracket_4_limit = 10;
+        public const uint system2_height_limit_total = 4165;
+        
+        // Both
         public const uint height_bracket_5_limit    = 7;
         public const uint height_bracket_6_limit    = 3;
         public const uint height_bracket_7_limit    = 2;
         public const uint height_bracket_8_limit    = 1;
-        public const uint height_limit_total        = 4200; 
-        
     }
 
     public class team
@@ -477,7 +494,7 @@ namespace ATF_test
                 if (switches.enable_captaincy_card_check) { Check_Cards.check_cards_captaincy(squad); }
 
                 // Check Height Abuse - Switch is in function
-                Height_Abuse.check_height_abuse(squad);
+                if (switches.enable_height_abuse_bracket_check) { Height_Abuse.check_height_abuse(squad); }
 
                 // Checking finished
                 // Are there any errors?
@@ -521,7 +538,7 @@ namespace ATF_test
             bool ini_setup = false;
             player[] input_table;
 
-            Console.Title = "autoATF - Autumn 2014 Ruleset - Beta as fuck Edition";
+            Console.Title = "autoATF - Winter 2015 Ruleset - Version 1";
             
             // INI setup
             ini_setup = Parser.setup_switches();
