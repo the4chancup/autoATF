@@ -407,7 +407,15 @@ namespace ATF_test
             }
 
             // Remember to add the slashes back
-            return "/" + team_being_checked + "/";
+            // Unless you're awkward, like [s4s]
+            if (team_being_checked == "s4s")
+            {
+                return "[" + team_being_checked + "]";
+            }
+            else
+            {
+                return "/" + team_being_checked + "/";
+            }
         }
 
         static void check_em(player[] input_table)
