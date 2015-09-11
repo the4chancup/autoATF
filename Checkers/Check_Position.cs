@@ -3,233 +3,141 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ATF_test
+namespace AATF_15
 {
     public class Check_Position
     {
-        public static bool Position_Rationalise(player line, string position)
+        public static string Position_Lookup(int pos)
         {
-            if (position.Equals("A"))
+            string position = null;
+
+            switch(pos)
             {
-                return true;
+                case 0:
+                    position = "GK";
+                    break;
+                case 1:
+                    position = "CB";
+                    break;
+                case 2:
+                    position = "LB";
+                    break;
+                case 3:
+                    position = "RB";
+                    break;
+                case 4:
+                    position = "DMF";
+                    break;
+                case 5:
+                    position = "CMF";
+                    break;
+                case 6:
+                    position = "LMF";
+                    break;
+                case 7:
+                    position = "RMF";
+                    break;
+                case 8:
+                    position = "AMF";
+                    break;
+                case 9:
+                    position = "LWF";
+                    break;
+                case 10:
+                    position = "RWF";
+                    break;
+                case 11:
+                    position = "SS";
+                    break;
+                case 12:
+                    position = "CF";
+                    break;
+                default:
+                    position = "UNKNOWN";
+                    break;
             }
-            else if (position.Equals("C"))
-            {
-                return false;
-            }
-            else
-            {
-                Console.WriteLine(line.id + "\t" + line.name + " has an invalid rating in a position");
-                variables.errors++;
-                return false;
-            }
+
+            return position;
         }
 
         public static void check_player_positions(player line)
         {
-            // Rationalise the positions to boolean (A rating = true, C rating = false, anything else triggers an error)
-            line.position_gk = Position_Rationalise(line, line.gk);
-            line.position_cb = Position_Rationalise(line, line.cb);
-            line.position_lb = Position_Rationalise(line, line.lb);
-            line.position_rb = Position_Rationalise(line, line.rb);
-            line.position_dmf = Position_Rationalise(line, line.dmf);
-            line.position_cmf = Position_Rationalise(line, line.cmf);
-            line.position_lmf = Position_Rationalise(line, line.lmf);
-            line.position_rmf = Position_Rationalise(line, line.rmf);
-            line.position_amf = Position_Rationalise(line, line.amf);
-            line.position_lwf = Position_Rationalise(line, line.lwf);
-            line.position_rwf = Position_Rationalise(line, line.rwf);
-            line.position_ss = Position_Rationalise(line, line.ss);
-            line.position_cf = Position_Rationalise(line, line.cf);
+            // Player should only have one position with an A rating
+            // This position should be the registered position
+            int i = 0;
+            int a_ratings = 0;
+            int a_position = 0;
 
-            // Check if the player has multiple positions, then check if it equals the registered position
-            int position_count = Program.Count_Bool(line.position_gk,
-                                    line.position_cb,
-                                    line.position_lb,
-                                    line.position_rb,
-                                    line.position_dmf,
-                                    line.position_cmf,
-                                    line.position_lmf,
-                                    line.position_rmf,
-                                    line.position_amf,
-                                    line.position_lwf,
-                                    line.position_rwf,
-                                    line.position_ss,
-                                    line.position_cf);
-
-            if (position_count > 1)
+            for(i=0;i<13;i++)
             {
-                Console.WriteLine(line.id + "\t" + line.name + " has proficiency in more than one position");
-                variables.errors++;
-            }
-            else if (position_count == 0)
-            {
-                Console.WriteLine(line.id + "\t" + line.name + " has no proficiency in any position");
-                variables.errors++;
-            }
-            else
-            {
-                if (line.position == null)
+                if(line.PosRats[i] == 2)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has no registered position");
+                    a_ratings++;
+                    a_position = i;
+                }
+                else if(line.PosRats[i] == 1)
+                {
+                    // B ratings aren't allowed ever
+                    Console.WriteLine(line.id + "\t" + line.name + " has a B rating in position " + Position_Lookup(i));
                     variables.errors++;
                 }
-                else if (line.position.Equals("GK"))
+                else if(line.PosRats[i] == 0)
                 {
-                    if (!line.position_gk)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as GK but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                }
-                else if (line.position.Equals("CB"))
-                {
-                    if (!line.position_cb)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as CB but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_defender = true;
-                    }
-                }
-                else if (line.position.Equals("LB"))
-                {
-                    if (!line.position_lb)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as LB but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_defender = true;
-                    }
-                }
-                else if (line.position.Equals("RB"))
-                {
-                    if (!line.position_rb)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as RB but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_defender = true;
-                    }
-                }
-                else if (line.position.Equals("DMF"))
-                {
-                    if (!line.position_dmf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as DMF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_midfielder = true;
-                    }
-                }
-                else if (line.position.Equals("CMF"))
-                {
-                    if (!line.position_cmf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as CMF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_midfielder = true;
-                    }
-                }
-                else if (line.position.Equals("LMF"))
-                {
-                    if (!line.position_lmf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as LMF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_midfielder = true;
-                    }
-                }
-                else if (line.position.Equals("RMF"))
-                {
-                    if (!line.position_rmf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as RMF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_midfielder = true;
-                    }
-                }
-                else if (line.position.Equals("AMF"))
-                {
-                    if (!line.position_amf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as AMF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_midfielder = true;
-                    }
-                }
-                else if (line.position.Equals("LWF"))
-                {
-                    if (!line.position_lwf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as LWF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_striker = true;
-                    }
-                }
-                else if (line.position.Equals("RWF"))
-                {
-                    if (!line.position_rwf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as RWF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_striker = true;
-                    }
-                }
-                else if (line.position.Equals("SS"))
-                {
-                    if (!line.position_ss)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as SS but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_striker = true;
-                    }
-                }
-                else if (line.position.Equals("CF"))
-                {
-                    if (!line.position_cf)
-                    {
-                        Console.WriteLine(line.id + "\t" + line.name + " is registered as CF but does not have an A rating in it");
-                        variables.errors++;
-                    }
-                    else
-                    {
-                        line.is_striker = true;
-                    }
+                    // C rating is allowed
                 }
                 else
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has an invalid registered position");
+                    // Oh shit nigga what are you doing
+                    Console.WriteLine(line.id + "\t" + line.name + " has an unknown rating in position " + Position_Lookup(i));
                     variables.errors++;
+                }
+            }
+
+            if (a_ratings == 0)
+            {
+                // Player has no A ratings
+                Console.WriteLine(line.id + "\t" + line.name + " has no proficiency in any position");
+                variables.errors++;
+            }
+            else if(a_ratings >= 2)
+            {
+                // Player has an A rating in more than 1 position
+                Console.WriteLine(line.id + "\t" + line.name + " has proficiency in more than one position");
+                variables.errors++;
+            }
+            else // a_ratings == 1
+            {
+                // Check if the only A rating is the registered position
+                if(line.position != a_position)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " is registered in position " + Position_Lookup(line.position) + " but has an A Rating in " + Position_Lookup(a_position));
+                    variables.errors++;
+                }
+                else
+                {
+                    // Setup the player position type
+                    if(line.position == 0)
+                    {
+                        line.is_goalkeeper = true;
+                    }
+                    else if((line.position >= 1) && (line.position <= 3))
+                    {
+                        line.is_defender = true;
+                    }
+                    else if((line.position >= 4) && (line.position <= 8))
+                    {
+                        line.is_midfielder = true;
+                    }
+                    else if ((line.position >= 9) && (line.position <= 12))
+                    {
+                        line.is_striker = true;
+                    }
+                    else
+                    {
+                        // Oh shit nigga what are you doing
+                        Console.WriteLine(line.id + "\t" + line.name + " has an invalid registered position");
+                        variables.errors++;
+                    }
                 }
             }
         }
@@ -287,6 +195,5 @@ namespace ATF_test
                 variables.errors++;
             }
         }
-
     }
 }

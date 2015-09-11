@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ATF_test
+namespace AATF_15
 {
     class Height_Abuse
     {
@@ -18,7 +18,7 @@ namespace ATF_test
             public uint bracket_7;
             public uint bracket_8;
 
-            public uint height_total;
+            public int height_total;
         }
         
         public static void check_height_abuse(team squad)
@@ -106,15 +106,15 @@ namespace ATF_test
             }
 
             // For Brackets 1-4 there are two systems - System1 and System2
-            // System1 is the original system, but all players above 189cm take a -6 stat nerf
+            // System1 is the original system, but all players above 189cm take a variable stat nerf depending on their medal (-5 for Golds, -4 for Silvers, -3 for Regulars and GKs)
             // System2 has no players above 189cm, and shifts those four players to the 185-189cm bracket for no stat nerf
 
             // Firstly, we need to determine what System the manager intended
-            // To do this, first we check if any players have a -6 stat nerf
-            // If any players have this nerf, we can assume the manager intended to use System 1, because what are the chances they intended to use System2 but accidentally gave a player a perfect -6 stats nerf?
+            // To do this, first we check if any players have a stat nerf
+            // If any players have this nerf, we can assume the manager intended to use System 1, because what are the chances they intended to use System2 but accidentally gave a player a perfect stats nerf for their medal?
             if(system1_stats > 0)
             {
-                Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a -6 stats nerf)\n");
+                Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a variable stats nerf)\n");
                 system_type = 1;
 
                 // Lets do some error checking while we're here
@@ -122,7 +122,7 @@ namespace ATF_test
                 {
                     // Looks like the team doesn't have enough players with the stats nerf
                     // So it could be a mistake with System1 or a badly mangled System2, either way its an error
-                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players with the -6 stats nerf");
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players with the variable stats nerf");
                     Console.WriteLine("\t\t (Has " + system1_stats + " should have 4)");
                     variables.errors++;
                 }
@@ -135,7 +135,7 @@ namespace ATF_test
                 else // (system1_stats > 4)
                 {
                     // Good job, you managed to nerf too many players
-                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players with the -6 stats nerf");
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too many players with the variable stats nerf");
                     Console.WriteLine("\t\t (Has " + system1_stats + " should have 4)");
                     variables.errors++;
                 }
@@ -166,7 +166,7 @@ namespace ATF_test
                 else if (sixfootmasterrace == 4)
                 {
                     // No stats nerfs but a perfect 4 players above 189cm, so assume System1
-                    Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a -6 stats nerf)\n");
+                    Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a variable stats nerf)\n");
                     system_type = 1;
                 }
 
@@ -174,7 +174,7 @@ namespace ATF_test
                 {
                     // Nice try /wg/, but that's illegal even in System1, which we're going to assume you're using
                     // This is not the time for errors, that comes later
-                    Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a -6 stats nerf)\n");
+                    Console.WriteLine("Assuming Height Abuse System 1 (all players above 189cm have a variable stats nerf)\n");
                     system_type = 1;
                 }
             }
@@ -242,18 +242,15 @@ namespace ATF_test
                     variables.errors++;
                 }
 
-                if (switches.enable_height_abuse_sum_check == true)
+                // Check total team height
+                if (heights.height_total > constants.system1_height_limit_total)
                 {
-                    // Check total team height
-                    if (heights.height_total > constants.system1_height_limit_total)
-                    {
-                        Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.system1_height_limit_total);
-                        Console.WriteLine("\t\t (Has " + heights.height_total + " out of " + constants.system1_height_limit_total + ")");
-                        variables.errors++;
-                    }
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.system1_height_limit_total);
+                    Console.WriteLine("\t\t (Has " + heights.height_total + " out of " + constants.system1_height_limit_total + ")");
+                    variables.errors++;
                 }
 
-                // Check if all 190cm+ players have the -6 stats nerf
+                // Check if all 190cm+ players have the variable stats nerf
                 foreach (player line in squad.team_players)
                 {
                     if(line.height >= 190)
@@ -261,7 +258,7 @@ namespace ATF_test
                         if (line.is_gold_system1 == false && line.is_silver_system1 == false && line.is_regular_system1 == false && line.is_goalkeeper_system1 == false)
                         {
                             Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has not correctly nerfed " + line.name);
-                            Console.WriteLine("\t\t (Is " + line.height + "cm but does not have -6 in all stats)");
+                            Console.WriteLine("\t\t (Is " + line.height + "cm but does not have an appropriate stats nerf)");
                             variables.errors++;
                         }
                     }
@@ -328,15 +325,12 @@ namespace ATF_test
                     variables.errors++;
                 }
 
-                if (switches.enable_height_abuse_sum_check == true)
+                // Check total team height
+                if (heights.height_total > constants.system2_height_limit_total)
                 {
-                    // Check total team height
-                    if (heights.height_total > constants.system2_height_limit_total)
-                    {
-                        Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.system2_height_limit_total);
-                        Console.WriteLine("\t\t (Has " + heights.height_total + " out of " + constants.system2_height_limit_total + ")");
-                        variables.errors++;
-                    }
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has broken the total height limit of " + constants.system2_height_limit_total);
+                    Console.WriteLine("\t\t (Has " + heights.height_total + " out of " + constants.system2_height_limit_total + ")");
+                    variables.errors++;
                 }
             }
 

@@ -1,202 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using FileHelpers;
-using FileHelpers.RunTime;
 
-namespace ATF_test
+namespace AATF_15
 {
-    public class switches
-    {
-        static string _input_file;
-
-        public static string input_file
-        {
-            get
-            {
-                return _input_file;
-            }
-            set
-            {
-                _input_file = value;
-            }
-        }
-
-        static bool _input_check;
-
-        public static bool input_check
-        {
-            get
-            {
-                return _input_check;
-            }
-            set
-            {
-                _input_check = value;
-            }
-        }
-
-
-        static bool _enable_stats_check;
-        static bool _enable_form_check;
-        static bool _enable_weakfoot_check;
-        static bool _enable_player_position_check;
-        static bool _enable_team_position_check;
-        static bool _enable_injury_check;
-        static bool _enable_player_card_check;
-        static bool _enable_team_card_check;
-        static bool _enable_captaincy_card_check;
-        static bool _enable_player_count_check;
-        static bool _enable_ggss_check;
-        static bool _enable_height_abuse_bracket_check;
-        static bool _enable_height_abuse_sum_check;
-
-        public static bool enable_stats_check
-        {
-            get
-            {
-                return _enable_stats_check;
-            }
-            set
-            {
-                _enable_stats_check = value;
-            }
-        }
-        public static bool enable_form_check
-        {
-            get
-            {
-                return _enable_form_check;
-            }
-            set
-            {
-                _enable_form_check = value;
-            }
-        }
-        public static bool enable_weakfoot_check
-        {
-            get
-            {
-                return _enable_weakfoot_check;
-            }
-            set
-            {
-                _enable_weakfoot_check = value;
-            }
-        }
-        public static bool enable_player_position_check
-        {
-            get
-            {
-                return _enable_player_position_check;
-            }
-            set
-            {
-                _enable_player_position_check = value;
-            }
-        }
-        public static bool enable_team_position_check
-        {
-            get
-            {
-                return _enable_team_position_check;
-            }
-            set
-            {
-                _enable_team_position_check = value;
-            }
-        }
-        public static bool enable_injury_check
-        {
-            get
-            {
-                return _enable_injury_check;
-            }
-            set
-            {
-                _enable_injury_check = value;
-            }
-        }
-        public static bool enable_player_card_check
-        {
-            get
-            {
-                return _enable_player_card_check;
-            }
-            set
-            {
-                _enable_player_card_check = value;
-            }
-        }
-        public static bool enable_team_card_check
-        {
-            get
-            {
-                return _enable_team_card_check;
-            }
-            set
-            {
-                _enable_team_card_check = value;
-            }
-        }
-        public static bool enable_captaincy_card_check
-        {
-            get
-            {
-                return _enable_captaincy_card_check;
-            }
-            set
-            {
-                _enable_captaincy_card_check = value;
-            }
-        }
-        public static bool enable_player_count_check
-        {
-            get
-            {
-                return _enable_player_count_check;
-            }
-            set
-            {
-                _enable_player_count_check = value;
-            }
-        }
-        public static bool enable_ggss_check
-        {
-            get
-            {
-                return _enable_ggss_check;
-            }
-            set
-            {
-                _enable_ggss_check = value;
-            }
-        }
-        public static bool enable_height_abuse_bracket_check
-        {
-            get
-            {
-                return _enable_height_abuse_bracket_check;
-            }
-            set
-            {
-                _enable_height_abuse_bracket_check = value;
-            }
-        }
-        public static bool enable_height_abuse_sum_check
-        {
-            get
-            {
-                return _enable_height_abuse_sum_check;
-            }
-            set
-            {
-                _enable_height_abuse_sum_check = value;
-            }
-        }
-    }
-    
     public static class variables
     {
         static uint _errors;
@@ -223,57 +32,57 @@ namespace ATF_test
     {
         public const uint players_per_team = 23;
 
-        public const uint stats_gold       = 99;
-        public const uint stats_silver     = 88;
-        public const uint stats_regular    = 77;
-        public const uint stats_goalkeeper = 70;
+        public const uint stats_gold = 99;
+        public const uint stats_silver = 88;
+        public const uint stats_regular = 77;
+        public const uint stats_goalkeeper = 77;
 
-        // New height abuse rules call for a -6 stat nerf if above 190cm
-        public const uint stats_gold_system1       = 93;
-        public const uint stats_silver_system1     = 82;
-        public const uint stats_regular_system1    = 71;
-        public const uint stats_goalkeeper_system1 = 64;
+        // Summer 2015 Ruleset - All players above 189cm in height get a variable stat nerf
+        public const uint stats_gold_system1 = 94;
+        public const uint stats_silver_system1 = 84;
+        public const uint stats_regular_system1 = 74;
+        public const uint stats_goalkeeper_system1 = 74;
 
-        public const uint form_gold        = 8;
-        public const uint form_silver      = 8;
-        public const uint form_regular     = 5;
-        public const uint form_goalkeeper  = 5;
+        public const uint form_gold = 8;
+        public const uint form_silver = 8;
+        public const uint form_regular = 4;
+        public const uint form_goalkeeper = 4;
 
-        public const uint weakfoot_accuracy = 4;
-        public const uint weakfoot_usage    = 4;
+        public const uint weakfoot_accuracy = 2;
+        public const uint weakfoot_usage = 2;
 
-        public const uint weakfoot_manlet_height    = 179;
-        public const uint weakfoot_accuracy_manlet  = 8;
-        public const uint weakfoot_usage_manlet     = 8;
+        public const uint weakfoot_manlet_height = 179;
+        public const uint weakfoot_accuracy_manlet = 4;
+        public const uint weakfoot_usage_manlet = 4;
 
-        public const uint injury_tolerance          = 3;
+        public const uint injury_tolerance = 3;
 
-        public const uint cards_limit_regular       = 2;
-        public const uint cards_limit_silver        = 3;
-        public const uint cards_limit_gold          = 4;
-        public const int cards_limit_team           = 25;
+        public const uint cards_limit_goalkeeper = 1;
+        public const uint cards_limit_regular = 2;
+        public const uint cards_limit_silver = 3;
+        public const uint cards_limit_gold = 4;
 
-        public const uint positions_minimum_gk      = 2;
-        public const uint positions_minimum_def     = 2;
-        public const uint positions_minimum_mf      = 2;
-        public const uint positions_minimum_fw      = 1;
+        public const uint positions_minimum_gk = 2;
+        public const uint positions_minimum_def = 2;
+        public const uint positions_minimum_mf = 1;
+        public const uint positions_minimum_fw = 1;
 
-        public const uint players_gold              = 2;
-        public const uint players_silver            = 2;
-        public const uint players_regular_and_gk    = 19;
+        public const uint players_gold = 2;
+        public const uint players_silver = 2;
+        public const uint players_regular_and_gk = 19;
 
-        public const uint height_maximum_pes        = 210;
-        public const uint height_maximum_4cc        = 205;
+        public const uint height_maximum_pes = 210;
+        public const uint height_maximum_4cc = 205;
 
-        public const uint height_bracket_1          = 200;
-        public const uint height_bracket_2          = 195;
-        public const uint height_bracket_3          = 190;
-        public const uint height_bracket_4          = 185;
-        public const uint height_bracket_5          = 180;
-        public const uint height_bracket_6          = 175;
-        public const uint height_bracket_7          = 170;
-        public const uint height_bracket_8          = 165;
-        public const uint height_minimum_pes        = 148;
+        public const uint height_bracket_1 = 200;
+        public const uint height_bracket_2 = 195;
+        public const uint height_bracket_3 = 190;
+        public const uint height_bracket_4 = 185;
+        public const uint height_bracket_5 = 180;
+        public const uint height_bracket_6 = 175;
+        public const uint height_bracket_7 = 170;
+        public const uint height_bracket_8 = 165;
+        public const uint height_minimum_pes = 148;
 
         // Height Abuse
         // System 1
@@ -282,28 +91,38 @@ namespace ATF_test
         public const uint system1_height_bracket_3_limit = 2;
         public const uint system1_height_bracket_4_limit = 6;
         public const uint system1_height_limit_total = 4200;
-        
+
         // System 2
         public const uint system2_height_bracket_1_limit = 0;
         public const uint system2_height_bracket_2_limit = 0;
         public const uint system2_height_bracket_3_limit = 0;
         public const uint system2_height_bracket_4_limit = 10;
         public const uint system2_height_limit_total = 4165;
-        
+
         // Both
-        public const uint height_bracket_5_limit    = 7;
-        public const uint height_bracket_6_limit    = 3;
-        public const uint height_bracket_7_limit    = 2;
-        public const uint height_bracket_8_limit    = 1;
+        public const uint height_bracket_5_limit = 7;
+        public const uint height_bracket_6_limit = 3;
+        public const uint height_bracket_7_limit = 2;
+        public const uint height_bracket_8_limit = 1;
+
+        // Age Abuse
+        public const uint age_maximum = 50;
+        public const uint age_minimum = 15;        
     }
 
     public class team
     {
         public string team_name;
-        
+        public int teamID;
+
+        public int captains;
+
         public List<player> team_players = new List<player>();
+
+        // DEBUG - list of player names
+        public List<string> team_names = new List<string>();
     }
-    
+
     class Program
     {
         public static int Count_Bool(params bool[] args)
@@ -311,266 +130,223 @@ namespace ATF_test
             return args.Count(t => t);
         }
 
-        public static List<string> teams_4cc()
-        {
-            List<string> teams = new List<string>();
-
-            teams.Add("a");
-            teams.Add("b");
-            teams.Add("c");
-            teams.Add("d");
-            teams.Add("e");
-            teams.Add("f");
-            teams.Add("g");
-            teams.Add("h");
-            teams.Add("i");
-            teams.Add("k");
-            teams.Add("m");
-            teams.Add("n");
-            teams.Add("o");
-            teams.Add("s");
-            teams.Add("t");
-            teams.Add("u");
-            teams.Add("v");
-            teams.Add("w");
-            teams.Add("x");
-            teams.Add("y");
-
-            teams.Add("3");
-            teams.Add("adv");
-            teams.Add("an");
-            teams.Add("asp");
-            teams.Add("biz");
-            teams.Add("cgl");
-            teams.Add("ck");
-            teams.Add("cm");
-            teams.Add("co");
-            teams.Add("diy");
-            teams.Add("fa");
-            teams.Add("fit");
-            teams.Add("gd");
-            teams.Add("gif");
-            teams.Add("hm");
-            teams.Add("hr");
-            teams.Add("ic");
-            teams.Add("int");
-            teams.Add("jp");
-            teams.Add("lgbt");
-            teams.Add("lit");
-            teams.Add("mlp");
-            teams.Add("mu");
-            teams.Add("out");
-            teams.Add("po");
-            teams.Add("pol");
-            teams.Add("r9k");
-            teams.Add("s4s");
-            teams.Add("sci");
-            teams.Add("soc");
-            teams.Add("sp");
-            teams.Add("tg");
-            teams.Add("toy");
-            teams.Add("trv");
-            teams.Add("tv");
-            teams.Add("vg");
-            teams.Add("vp");
-            teams.Add("vr");
-            teams.Add("wg");
-            teams.Add("wsg");
-
-            return teams;
-        }
-
-        public static string team_input()
-        {
-            bool is_4cc_team = false;
-            
-            // Input team to be checked
-            Console.WriteLine("Enter team name:\t(Without slashes)");
-            string team_being_checked = Console.ReadLine();
-            Console.WriteLine();
-
-            List<string> valid_teams = teams_4cc();
-
-            foreach(string line in valid_teams)
-            {
-                if(line.Equals(team_being_checked))
-                {
-                    is_4cc_team = true;
-                }
-            }
-
-            if(switches.input_check == true && is_4cc_team == false)
-            {
-                Console.WriteLine("ERROR: That is not a valid 4cc team");
-                Console.WriteLine();
-                variables.errors++;
-            }
-
-            // Remember to add the slashes back
-            // Unless you're awkward, like [s4s]
-            if (team_being_checked == "s4s")
-            {
-                return "[" + team_being_checked + "]";
-            }
-            else
-            {
-                return "/" + team_being_checked + "/";
-            }
-        }
-
-        static void check_em(player[] input_table)
-        {
-            uint players = 0;
-
-            // Create a structure for the team info
-            team squad = new team();
-
-            // Input team to be checked
-            squad.team_name = team_input();
-
-            // If you've triggered an error already, just stop
-            if(variables.errors == 0)
-            {
-                // Player-specific checks
-
-                // Loop through every player in the player table
-                foreach (player line in input_table)
-                {
-                    // If that player is registered to the team you're checking, perform checks on them
-                    if (line.Club == squad.team_name)
-                    {
-                        // Check Stats and set Gold/Silver/Regular/Goalkeeper marker
-                        // This MUST be done first, as subsequent checks may need to use the markers
-                        // NOTE: If a player fails this, they will not have a type marker set and so will fall through type checks
-                        if (switches.enable_stats_check) { Check_Stats.check_stats(line); }
-
-                        // Check Form against the player type
-                        if (switches.enable_form_check) { Check_Form.check_form(line); }
-
-                        // Check if manlets have correctly augmented weakfoot stats
-                        // Check all other player have correct weakfoot stats
-                        if (switches.enable_weakfoot_check) { Check_Weakfoot.check_manlet_weakfoot(line); }
-
-                        // Check if players have the correct proficiency in their registered position
-                        // Check that this is the only position they have proficiency in
-                        if (switches.enable_player_position_check) { Check_Position.check_player_positions(line); }
-
-                        // Check if players have the correct Injury Tolerance
-                        if (switches.enable_injury_check) { Check_InjuryTolerance.check_injurytolerance(line); }
-
-                        // Check if players have the right number of cards for their type
-                        if (switches.enable_player_card_check) { Check_Cards.check_cards(line); }
-
-                        // Add player to the squad structure for further team-wide checks
-                        if (switches.enable_player_count_check) { squad.team_players.Add(line); }
-                        players++;
-                    }
-                }
-
-                // Team-wide checks
-
-                // Check number of players in team. If none found, that means team doesn't exist in this save
-                Console.WriteLine();
-                if (switches.enable_player_count_check)
-                {
-                    if (players == 0)
-                    {
-                        Console.WriteLine("Team not found");
-                    }
-                    else if (players > 0 && players < constants.players_per_team)
-                    {
-                        Console.WriteLine(squad.team_name + " has " + (constants.players_per_team - players) + " players too few (Is " + players + ", should be " + constants.players_per_team + ")");
-                        variables.errors++;
-                    }
-                    else if (players > constants.players_per_team)
-                    {
-                        Console.WriteLine(squad.team_name + " has " + (players - constants.players_per_team) + " players too many (Is " + players + ", should be " + constants.players_per_team + ")");
-                        variables.errors++;
-                    }
-                }
-
-                // Check GGSS allocation
-                if (switches.enable_ggss_check) { Check_Stats.check_ggss(squad); }
-
-                // Check the position allocations
-                if (switches.enable_team_position_check) { Check_Position.check_team_positions(squad); }
-
-                // Check total cards
-                if (switches.enable_team_card_check) { Check_Cards.check_team_cards(squad); }
-
-                // Check Captaincy cards
-                if (switches.enable_captaincy_card_check) { Check_Cards.check_cards_captaincy(squad); }
-
-                // Check Height Abuse - Switch is in function
-                if (switches.enable_height_abuse_bracket_check) { Height_Abuse.check_height_abuse(squad); }
-
-                // Checking finished
-                // Are there any errors?
-                Console.WriteLine();
-
-                // Print the number of errors that were detected for that team
-                Console.WriteLine("Errors: " + variables.errors);
-
-                // #bantz
-                if (variables.errors != 0)
-                {
-                    if (squad.team_name.Equals("/mlp/"))
-                    {
-                        Console.WriteLine("HORSEFUCKERS OUT");
-                    }
-                    else if (squad.team_name.Equals("/k/"))
-                    {
-                        Console.WriteLine(pasta.navyseals);
-                    }
-                    else
-                    {
-                        Console.WriteLine(squad.team_name + " manager should kill themselves");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Perfect, Blaze!");
-                }
-
-                // Check Complete
-                Console.WriteLine();
-                Console.WriteLine("Team check complete!");
-                Console.WriteLine();
-            }
-        }
-        
         static void Main(string[] args)
         {
             variables.errors = 0;
-            
-            bool ini_setup = false;
-            player[] input_table;
 
-            Console.Title = "autoATF - Winter 2015 Ruleset - Version 1";
-            
+            bool ini_setup = false;
+
+            Console.Title = "autoATF - PES 2015 - Autumn 2015 Edition - v2.1";
+
             // INI setup
             ini_setup = Parser.setup_switches();
 
             // Only continue if the ini setup was successful, otherwise there will be no input file and the csv parser will fall over
             if (ini_setup)
             {
-                // Parse the csv player table
-                input_table = Parser.parse_csv();
-
-                for (; ; )
+                // Are we checking, or comparing?
+                // The compare_file should be blank if we're checking, and have a file if we're comparing
+                if (switches.compare_file == "")
                 {
-                    // Run through the checks
-                    check_em(input_table);
+                    // *** Checking ***
 
-                    // Reset the error count for the next team
-                    variables.errors = 0;
+                    Console.WriteLine("Entering Checker Mode...\n");
+
+                    // Is it an edit.bin, or a texport.bin?
+                    if (Importer.is_edit_bin(switches.input_file))
+                    {
+                        List<player> player_table = new List<player>();
+
+                        // Parse the edit.bin
+                        player_table = Importer.save_importer(switches.input_file);
+
+                        while (true)
+                        {
+                            team squad = new team();
+
+                            // What team to check?
+                            checker.team_input(squad);
+
+                            // Construct that team
+                            checker.teambuilding(player_table, squad);
+
+                            // Check that team
+                            checker.check_em(squad);
+
+                            // Reset the error count for the next team
+                            variables.errors = 0;
+                        }
+                    }
+                    else // Its a texport.bin
+                    {
+                        team squad = new team();
+
+                        // Parse the texport.bin
+                        squad = Importer.export_importer(switches.input_file);
+
+                        Console.WriteLine("Team Export:\t" + squad.team_name);
+                        Console.WriteLine();
+
+                        // Check that the players are meant to be on that team
+                        checker.check_squad_consistency(squad);
+
+                        // Check that team
+                        checker.check_em(squad);
+                    }
+                }
+                else
+                {
+                    // *** Comparing ***
+
+                    Console.WriteLine("Entering Compare Mode...\n");
+
+                    // What team are we comparing?
+                    // If one of the files is an export, we can assume that one
+
+                    int type = -1; // 0 - Save/Save, 1 - Save/Export, 2 - Export/Save, 3 - Export/Export, -1 - ERROR
+
+                    type = comparer.get_compare_type();
+
+                    // So now we know what setup we have, lets start parsing the files
+                    switch (type)
+                    {
+                        case 0: // Save/Save
+
+                            // This is the only type that can loop infinitely, as you can check a different team every time
+                            while (true)
+                            {
+                                team t0_squad_save_1 = new team();
+                                team t0_squad_save_2 = new team();
+
+                                // Parse the saves
+                                List<player> t0_player_table_1 = new List<player>();
+                                List<player> t0_player_table_2 = new List<player>();
+
+                                t0_player_table_1 = Importer.save_importer(switches.input_file);
+                                t0_player_table_2 = Importer.save_importer(switches.compare_file);
+
+                                // What team to check?
+                                checker.team_input(t0_squad_save_1);
+
+                                t0_squad_save_2.teamID = t0_squad_save_1.teamID;
+                                t0_squad_save_2.team_name = t0_squad_save_1.team_name;
+
+                                // Construct the two teams
+                                checker.teambuilding(t0_player_table_1, t0_squad_save_1);
+                                checker.teambuilding(t0_player_table_2, t0_squad_save_2);
+
+                                // Compare the teams
+                                comparer.compare_teams(t0_squad_save_1, t0_squad_save_2);
+
+                                Console.WriteLine();
+                                Console.WriteLine("Differences: " + variables.errors);
+                                Console.WriteLine("Compare completed!");
+                                Console.WriteLine();
+                            }
+                            break;
+
+                        case 1: // Save/Export
+
+                            team t1_squad_save = new team();
+                            team t1_squad_export = new team();
+
+                            // Parse the texport.bin
+                            t1_squad_export = Importer.export_importer(switches.compare_file);
+
+                            Console.WriteLine();
+                            Console.WriteLine("Comparing " + t1_squad_export.team_name);
+                            Console.WriteLine();
+
+                            // Now we know what team we're using, parse the edit.bin
+                            List<player> t1_player_table = new List<player>();
+
+                            t1_player_table = Importer.save_importer(switches.input_file);
+
+                            t1_squad_save.teamID = t1_squad_export.teamID;
+                            t1_squad_save.team_name = t1_squad_export.team_name;
+
+                            // Construct that team
+                            checker.teambuilding(t1_player_table, t1_squad_save);
+
+                            // Compare the teams
+                            comparer.compare_teams(t1_squad_save, t1_squad_export);
+
+                            break;
+
+                        case 2: // Export/Save
+
+                            team t2_squad_save = new team();
+                            team t2_squad_export = new team();
+
+                            // Parse the texport.bin
+                            t2_squad_export = Importer.export_importer(switches.input_file);
+
+                            Console.WriteLine();
+                            Console.WriteLine("Comparing " + t2_squad_export.team_name);
+                            Console.WriteLine();
+
+                            // Now we know what team we're using, parse the edit.bin
+                            List<player> t2_player_table = new List<player>();
+
+                            t2_player_table = Importer.save_importer(switches.compare_file);
+
+                            t2_squad_save.teamID = t2_squad_export.teamID;
+                            t2_squad_save.team_name = t2_squad_export.team_name;
+
+                            // Construct that team
+                            checker.teambuilding(t2_player_table, t2_squad_save);
+
+                            // Compare the teams
+                            comparer.compare_teams(t2_squad_save, t2_squad_export);
+
+                            break;
+
+                        case 3: // Export/Export
+
+                            team t3_squad_export_1 = new team();
+                            team t3_squad_export_2 = new team();
+
+                            // Parse the texport.bins
+                            t3_squad_export_1 = Importer.export_importer(switches.input_file);
+                            t3_squad_export_2 = Importer.export_importer(switches.compare_file);
+
+                            // Are they exports for the same team?
+                            if (t3_squad_export_1.teamID != t3_squad_export_2.teamID)
+                            {
+                                Console.WriteLine("\nThe two exports have different teams! Cancelling comparison");
+                                Console.WriteLine("\t\t(" + t3_squad_export_1.team_name + " and " + t3_squad_export_2.team_name + ")");
+                            }
+                            else
+                            {
+                                Console.WriteLine();
+                                Console.WriteLine("Comparing " + t3_squad_export_1.team_name);
+                                Console.WriteLine();
+
+                                // Compare the teams
+                                comparer.compare_teams(t3_squad_export_1, t3_squad_export_2);
+                            }
+
+                            break;
+
+                        default:
+                            // Oh shit nigga what are you doing
+                            Console.WriteLine();
+                            Console.WriteLine("Invalid input files");
+                            Console.WriteLine("You really shouldn't be seeing this error. If you are, you dun goof'd somehow");
+                            Console.WriteLine("Check the ini is pointing at the correct files");
+                            Console.WriteLine();
+                            break;
+                    }
+
+                    Console.WriteLine();
+                    Console.WriteLine("Differences: " + variables.errors);
+                    Console.WriteLine("Compare completed!");
+                    Console.WriteLine();
                 }
             }
 
             Console.WriteLine("Press Enter to Exit...");
             Console.ReadLine();
-            
         }
-
     }
 }

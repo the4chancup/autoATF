@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ATF_test
+namespace AATF_15
 {
     public class Check_Stats
     {
         public static void check_stats(player line)
         {
             // GOLD
-            if (line.Attacking_Prowess == constants.stats_gold &&
-               line.Ball_Control == constants.stats_gold &&
+            if (line.Ball_Control == constants.stats_gold &&
                line.Dribbling == constants.stats_gold &&
                line.Low_Pass == constants.stats_gold &&
                line.Lofted_Pass == constants.stats_gold &&
@@ -19,7 +18,6 @@ namespace ATF_test
                line.Place_Kicking == constants.stats_gold &&
                line.Controlled_Spin == constants.stats_gold &&
                line.Header == constants.stats_gold &&
-               line.Defensive_Prowess == constants.stats_gold &&
                line.Ball_Winning == constants.stats_gold &&
                line.Kicking_Power == constants.stats_gold &&
                line.Speed == constants.stats_gold &&
@@ -28,15 +26,13 @@ namespace ATF_test
                line.Jump == constants.stats_gold &&
                line.Goalkeeping == constants.stats_gold &&
                line.Saving == constants.stats_gold &&
-               line.Tenacity == constants.stats_gold &&
                line.Stamina == constants.stats_gold)
             {
                 line.is_gold = true;
             }
 
-            // GOLD SYSTEM 1 --- WINTER 2015 HEIGHT ABUSE EDITION
-            else if (line.Attacking_Prowess == constants.stats_gold_system1 &&
-               line.Ball_Control == constants.stats_gold_system1 &&
+            // GOLD SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
+            else if (line.Ball_Control == constants.stats_gold_system1 &&
                line.Dribbling == constants.stats_gold_system1 &&
                line.Low_Pass == constants.stats_gold_system1 &&
                line.Lofted_Pass == constants.stats_gold_system1 &&
@@ -44,7 +40,6 @@ namespace ATF_test
                line.Place_Kicking == constants.stats_gold_system1 &&
                line.Controlled_Spin == constants.stats_gold_system1 &&
                line.Header == constants.stats_gold_system1 &&
-               line.Defensive_Prowess == constants.stats_gold_system1 &&
                line.Ball_Winning == constants.stats_gold_system1 &&
                line.Kicking_Power == constants.stats_gold_system1 &&
                line.Speed == constants.stats_gold_system1 &&
@@ -53,7 +48,6 @@ namespace ATF_test
                line.Jump == constants.stats_gold_system1 &&
                line.Goalkeeping == constants.stats_gold_system1 &&
                line.Saving == constants.stats_gold_system1 &&
-               line.Tenacity == constants.stats_gold_system1 &&
                line.Stamina == constants.stats_gold_system1)
             {
                 line.is_gold = true;
@@ -61,8 +55,7 @@ namespace ATF_test
             }
 
            // SILVER
-            else if (line.Attacking_Prowess == constants.stats_silver &&
-                line.Ball_Control == constants.stats_silver &&
+            else if (line.Ball_Control == constants.stats_silver &&
                 line.Dribbling == constants.stats_silver &&
                 line.Low_Pass == constants.stats_silver &&
                 line.Lofted_Pass == constants.stats_silver &&
@@ -70,7 +63,6 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_silver &&
                 line.Controlled_Spin == constants.stats_silver &&
                 line.Header == constants.stats_silver &&
-                line.Defensive_Prowess == constants.stats_silver &&
                 line.Ball_Winning == constants.stats_silver &&
                 line.Kicking_Power == constants.stats_silver &&
                 line.Speed == constants.stats_silver &&
@@ -79,15 +71,13 @@ namespace ATF_test
                 line.Jump == constants.stats_silver &&
                 line.Goalkeeping == constants.stats_silver &&
                 line.Saving == constants.stats_silver &&
-                line.Tenacity == constants.stats_silver &&
                 line.Stamina == constants.stats_silver)
             {
                 line.is_silver = true;
             }
-            
-            // SILVER SYSTEM 1 --- WINTER 2015 HEIGHT ABUSE EDITION
-            else if (line.Attacking_Prowess == constants.stats_silver_system1 &&
-                line.Ball_Control == constants.stats_silver_system1 &&
+
+            // SILVER SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
+            else if (line.Ball_Control == constants.stats_silver_system1 &&
                 line.Dribbling == constants.stats_silver_system1 &&
                 line.Low_Pass == constants.stats_silver_system1 &&
                 line.Lofted_Pass == constants.stats_silver_system1 &&
@@ -95,7 +85,6 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_silver_system1 &&
                 line.Controlled_Spin == constants.stats_silver_system1 &&
                 line.Header == constants.stats_silver_system1 &&
-                line.Defensive_Prowess == constants.stats_silver_system1 &&
                 line.Ball_Winning == constants.stats_silver_system1 &&
                 line.Kicking_Power == constants.stats_silver_system1 &&
                 line.Speed == constants.stats_silver_system1 &&
@@ -104,7 +93,6 @@ namespace ATF_test
                 line.Jump == constants.stats_silver_system1 &&
                 line.Goalkeeping == constants.stats_silver_system1 &&
                 line.Saving == constants.stats_silver_system1 &&
-                line.Tenacity == constants.stats_silver_system1 &&
                 line.Stamina == constants.stats_silver_system1)
             {
                 line.is_silver = true;
@@ -112,8 +100,7 @@ namespace ATF_test
             }
 
             // REGULAR
-            else if (line.Attacking_Prowess == constants.stats_regular &&
-                line.Ball_Control == constants.stats_regular &&
+            else if (line.Ball_Control == constants.stats_regular &&
                 line.Dribbling == constants.stats_regular &&
                 line.Low_Pass == constants.stats_regular &&
                 line.Lofted_Pass == constants.stats_regular &&
@@ -121,7 +108,6 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_regular &&
                 line.Controlled_Spin == constants.stats_regular &&
                 line.Header == constants.stats_regular &&
-                line.Defensive_Prowess == constants.stats_regular &&    // Defensive Prowess is 88 on regulars ----- Doesnt seem to be the case for Autumn 2014
                 line.Ball_Winning == constants.stats_regular &&
                 line.Kicking_Power == constants.stats_regular &&
                 line.Speed == constants.stats_regular &&
@@ -130,15 +116,13 @@ namespace ATF_test
                 line.Jump == constants.stats_regular &&
                 line.Goalkeeping == constants.stats_regular &&
                 line.Saving == constants.stats_regular &&
-                line.Tenacity == constants.stats_regular &&
                 line.Stamina == constants.stats_regular)
             {
                 line.is_regular = true;
             }
 
-            // REGULAR SYSTEM 1 --- WINTER 2015 HEIGHT ABUSE EDITION
-            else if (line.Attacking_Prowess == constants.stats_regular_system1 &&
-                line.Ball_Control == constants.stats_regular_system1 &&
+            // REGULAR SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
+            else if (line.Ball_Control == constants.stats_regular_system1 &&
                 line.Dribbling == constants.stats_regular_system1 &&
                 line.Low_Pass == constants.stats_regular_system1 &&
                 line.Lofted_Pass == constants.stats_regular_system1 &&
@@ -146,7 +130,6 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_regular_system1 &&
                 line.Controlled_Spin == constants.stats_regular_system1 &&
                 line.Header == constants.stats_regular_system1 &&
-                line.Defensive_Prowess == constants.stats_regular_system1 &&    // Defensive Prowess is 88 on regulars ----- Doesnt seem to be the case for Autumn 2014
                 line.Ball_Winning == constants.stats_regular_system1 &&
                 line.Kicking_Power == constants.stats_regular_system1 &&
                 line.Speed == constants.stats_regular_system1 &&
@@ -155,7 +138,6 @@ namespace ATF_test
                 line.Jump == constants.stats_regular_system1 &&
                 line.Goalkeeping == constants.stats_regular_system1 &&
                 line.Saving == constants.stats_regular_system1 &&
-                line.Tenacity == constants.stats_regular_system1 &&
                 line.Stamina == constants.stats_regular_system1)
             {
                 line.is_regular = true;
@@ -163,8 +145,7 @@ namespace ATF_test
             }
 
             // GK
-            else if (line.Attacking_Prowess == constants.stats_goalkeeper &&
-                line.Ball_Control == constants.stats_goalkeeper &&
+            else if (line.Ball_Control == constants.stats_goalkeeper &&
                 line.Dribbling == constants.stats_goalkeeper &&
                 line.Low_Pass == constants.stats_goalkeeper &&
                 line.Lofted_Pass == constants.stats_goalkeeper &&
@@ -172,24 +153,21 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_goalkeeper &&
                 line.Controlled_Spin == constants.stats_goalkeeper &&
                 line.Header == constants.stats_goalkeeper &&
-                line.Defensive_Prowess == constants.stats_goalkeeper &&  // Goalkeepers have 99 defensive prowess ----- Doesnt seem to be the case for Autumn 2014
                 line.Ball_Winning == constants.stats_goalkeeper &&
                 line.Kicking_Power == constants.stats_goalkeeper &&
                 line.Speed == constants.stats_goalkeeper &&
                 line.Explosive_Power == constants.stats_goalkeeper &&
                 line.Body_Balance == constants.stats_goalkeeper &&
-                line.Jump == constants.stats_goalkeeper &&                // Goalkeepers have 66 jump/goalkeeping/saving ----- Doesnt seem to be the case for Autumn 2014
-                line.Goalkeeping == constants.stats_goalkeeper &&                // Goalkeepers have 66 jump/goalkeeping/saving ----- Doesnt seem to be the case for Autumn 2014
-                line.Saving == constants.stats_goalkeeper &&                // Goalkeepers have 66 jump/goalkeeping/saving ----- Doesnt seem to be the case for Autumn 2014
-                line.Tenacity == constants.stats_goalkeeper &&
+                line.Jump == constants.stats_goalkeeper &&
+                line.Goalkeeping == constants.stats_goalkeeper &&
+                line.Saving == constants.stats_goalkeeper &&
                 line.Stamina == constants.stats_goalkeeper)
             {
                 line.is_goalkeeper = true;
             }
-            
-            // GOALKEEPER SYSTEM 1 --- WINTER 2015 HEIGHT ABUSE EDITION
-            else if (line.Attacking_Prowess == constants.stats_goalkeeper_system1 &&
-                line.Ball_Control == constants.stats_goalkeeper_system1 &&
+
+            // GOALKEEPER SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
+            else if (line.Ball_Control == constants.stats_goalkeeper_system1 &&
                 line.Dribbling == constants.stats_goalkeeper_system1 &&
                 line.Low_Pass == constants.stats_goalkeeper_system1 &&
                 line.Lofted_Pass == constants.stats_goalkeeper_system1 &&
@@ -197,7 +175,6 @@ namespace ATF_test
                 line.Place_Kicking == constants.stats_goalkeeper_system1 &&
                 line.Controlled_Spin == constants.stats_goalkeeper_system1 &&
                 line.Header == constants.stats_goalkeeper_system1 &&
-                line.Defensive_Prowess == constants.stats_goalkeeper_system1 &&
                 line.Ball_Winning == constants.stats_goalkeeper_system1 &&
                 line.Kicking_Power == constants.stats_goalkeeper_system1 &&
                 line.Speed == constants.stats_goalkeeper_system1 &&
@@ -206,7 +183,6 @@ namespace ATF_test
                 line.Jump == constants.stats_goalkeeper_system1 &&
                 line.Goalkeeping == constants.stats_goalkeeper_system1 &&
                 line.Saving == constants.stats_goalkeeper_system1 &&
-                line.Tenacity == constants.stats_goalkeeper_system1 &&
                 line.Stamina == constants.stats_goalkeeper_system1)
             {
                 line.is_goalkeeper = true;
@@ -218,6 +194,67 @@ namespace ATF_test
             {
                 Console.WriteLine(line.id + "\t" + line.name + " has invalid stats");
                 variables.errors++;
+            }
+        }
+
+        public static void check_prowess(player line)
+        {
+            uint stats = 0U;
+
+            // Prowess can be set to any value, but cannot exceed the medal stat for that player
+            // Lets get the medal stat for that player, then compare it to their Att/Def Prowess
+            if (line.is_gold)
+            {
+                stats = constants.stats_gold;
+            }
+            else if (line.is_gold_system1)
+            {
+                stats = constants.stats_gold_system1;
+            }
+            else if (line.is_silver)
+            {
+                stats = constants.stats_silver;
+            }
+            else if (line.is_silver_system1)
+            {
+                stats = constants.stats_silver_system1;
+            }
+            else if (line.is_regular)
+            {
+                stats = constants.stats_regular;
+            }
+            else if (line.is_regular_system1)
+            {
+                stats = constants.stats_regular_system1;
+            }
+            else if (line.is_goalkeeper)
+            {
+                stats = constants.stats_goalkeeper;
+            }
+            else if (line.is_goalkeeper_system1)
+            {
+                stats = constants.stats_goalkeeper_system1;
+            }
+            else
+            {
+                // Player has invalid stats, disregard Prowess check
+                Console.WriteLine(line.id + "\t" + line.name + " has invalid stats, so Prowess cannot be checked");
+                variables.errors++;
+            }
+
+            if (stats > 0)
+            {
+                if (line.Attacking_Prowess > stats)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " has invalid Attacking Prowess (Is " + line.Attacking_Prowess + ", should be " + stats + ")");
+                    variables.errors++;
+                }
+
+                if (line.Defensive_Prowess > stats)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " has invalid Defensive Prowess (Is " + line.Defensive_Prowess + ", should be " + stats + ")");
+                    variables.errors++;
+                }
             }
         }
 
@@ -243,11 +280,11 @@ namespace ATF_test
                 {
                     regulars++;
                 }
-                
+                /*
                 if(line.is_goalkeeper)
                 {
                     regulars++;
-                }
+                }*/
             }
 
             // GOLDS
