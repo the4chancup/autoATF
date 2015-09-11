@@ -1,4 +1,4 @@
-Copyright (c) 2015 The 4chan Cup
+Copyright (c) 2015 The 4chan Cup (http://implyingrigged.info)
 
 This software is provided 'as-is', without any express or implied
 warranty. In no event will the authors be held liable for any damages
