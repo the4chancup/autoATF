@@ -822,7 +822,7 @@ namespace AATF_15
 
             // Decrypt it
             byte[] ebin;
-            ebin = BinFileUtility.BinFile.decryptFile(raw_ebin);
+            ebin = PES16Decrypter.decryptFile(raw_ebin);
 
             List<player> player_table = new List<player>();
             Hashtable team_table = new Hashtable();
