@@ -16,7 +16,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_gold &&
                line.Lofted_Pass == constants.stats_gold &&
                line.Header == constants.stats_gold &&
-               line.Form == constants.stats_gold &&
                line.Controlled_Spin == constants.stats_gold &&
                line.Saving == constants.stats_gold &&
                line.Clearing == constants.stats_gold &&
@@ -42,7 +41,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_gold_system1 &&
                line.Lofted_Pass == constants.stats_gold_system1 &&
                line.Header == constants.stats_gold_system1 &&
-               line.Form == constants.stats_gold_system1 &&
                line.Controlled_Spin == constants.stats_gold_system1 &&
                line.Saving == constants.stats_gold_system1 &&
                line.Clearing == constants.stats_gold_system1 &&
@@ -69,7 +67,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_silver &&
                line.Lofted_Pass == constants.stats_silver &&
                line.Header == constants.stats_silver &&
-               line.Form == constants.stats_silver &&
                line.Controlled_Spin == constants.stats_silver &&
                line.Saving == constants.stats_silver &&
                line.Clearing == constants.stats_silver &&
@@ -95,7 +92,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_silver_system1 &&
                line.Lofted_Pass == constants.stats_silver_system1 &&
                line.Header == constants.stats_silver_system1 &&
-               line.Form == constants.stats_silver_system1 &&
                line.Controlled_Spin == constants.stats_silver_system1 &&
                line.Saving == constants.stats_silver_system1 &&
                line.Clearing == constants.stats_silver_system1 &&
@@ -122,7 +118,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_regular &&
                line.Lofted_Pass == constants.stats_regular &&
                line.Header == constants.stats_regular &&
-               line.Form == constants.stats_regular &&
                line.Controlled_Spin == constants.stats_regular &&
                line.Saving == constants.stats_regular &&
                line.Clearing == constants.stats_regular &&
@@ -148,7 +143,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_regular_system1 &&
                line.Lofted_Pass == constants.stats_regular_system1 &&
                line.Header == constants.stats_regular_system1 &&
-               line.Form == constants.stats_regular_system1 &&
                line.Controlled_Spin == constants.stats_regular_system1 &&
                line.Saving == constants.stats_regular_system1 &&
                line.Clearing == constants.stats_regular_system1 &&
@@ -175,7 +169,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_goalkeeper &&
                line.Lofted_Pass == constants.stats_goalkeeper &&
                line.Header == constants.stats_goalkeeper &&
-               line.Form == constants.stats_goalkeeper &&
                line.Controlled_Spin == constants.stats_goalkeeper &&
                line.Saving == constants.stats_goalkeeper &&
                line.Clearing == constants.stats_goalkeeper &&
@@ -201,7 +194,6 @@ namespace AATF_15
                line.Low_Pass == constants.stats_goalkeeper_system1 &&
                line.Lofted_Pass == constants.stats_goalkeeper_system1 &&
                line.Header == constants.stats_goalkeeper_system1 &&
-               line.Form == constants.stats_goalkeeper_system1 &&
                line.Controlled_Spin == constants.stats_goalkeeper_system1 &&
                line.Saving == constants.stats_goalkeeper_system1 &&
                line.Clearing == constants.stats_goalkeeper_system1 &&
