@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("4cc PES15 Autumn Babby Cup 2015 Ruleset Checker and Comparer")]
-[assembly: AssemblyDescription("PES15 save checking and comparing tool")]
+[assembly: AssemblyTitle("4cc PES16 Winter Cup 2016 Ruleset Checker and Comparer")]
+[assembly: AssemblyDescription("PES16 save checking and comparing tool")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("The 4chan Cup")]
 [assembly: AssemblyProduct("autoATF")]
