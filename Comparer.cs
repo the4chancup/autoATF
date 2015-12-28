@@ -104,6 +104,9 @@ namespace AATF_15
                         compare_value(player_1.Saving, player_2.Saving, "Saving");
                         compare_value(player_1.Stamina, player_2.Stamina, "Stamina");
                         compare_value(player_1.Form, player_2.Form, "Form");
+                        compare_value(player_1.Clearing, player_2.Clearing, "Clearing");
+                        compare_value(player_1.Reflexes, player_2.Reflexes, "Reflexes");
+                        compare_value(player_1.Coverage, player_2.Coverage, "Coverage");
 
                         compare_value(player_1.Injury_Resistance, player_2.Injury_Resistance, "Injury_Resistance");
 
@@ -117,10 +120,22 @@ namespace AATF_15
                             compare_value(player_1.Cards_Style[i], player_2.Cards_Style[i], "Style_Cards");
                         }
 
-                        for (i = 0; i < 22; i++)
+                        for (i = 0; i < 28; i++)
                         {
                             compare_value(player_1.Cards_Skills[i], player_2.Cards_Skills[i], "Skill_Cards");
                         }
+
+                        // Aesthetics - not illegal to change these but might as well check anyway
+                        compare_value(player_1.commentary_name, player_2.commentary_name, "commentary_name");
+                        compare_value(player_1.ani_celebration_1, player_2.ani_celebration_1, "Animation: celebration_1");
+                        compare_value(player_1.ani_celebration_2, player_2.ani_celebration_2, "Animation: celebration_2");
+                        compare_value(player_1.ani_free_kick, player_2.ani_free_kick, "Animation: free_kick");
+                        compare_value(player_1.ani_corner, player_2.ani_corner, "Animation: corner");
+                        compare_value(player_1.ani_penalty, player_2.ani_penalty, "Animation: penalty");
+                        compare_value(player_1.ani_arms_dribbling, player_2.ani_arms_dribbling, "Animation: arms_dribbling");
+                        compare_value(player_1.ani_arms_running, player_2.ani_arms_running, "Animation: arms_running");
+                        compare_value(player_1.ani_hunch_dribbling, player_2.ani_hunch_dribbling, "Animation: hunch_dribbling");
+                        compare_value(player_1.ani_hunch_running, player_2.ani_hunch_running, "Animation: hunch_running");
                     }
                 }
             }

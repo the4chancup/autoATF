@@ -31,7 +31,7 @@ namespace AATF_15
             }
 
             // Captaincy Cards are excluded from the limit
-            if(line.Cards_Skills[19] == 1)
+            if(line.Cards_Skills[25] == 1)
             {
                 captaincy = true;
             }
