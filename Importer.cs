@@ -171,11 +171,11 @@ namespace AATF_15
 
         static string texPlayerName(byte[] chunk)
         {
-            int max_char = 25;
+            int max_char = 46;
 
             byte[] texport_player_name = new byte[max_char];
 
-            Array.Copy(chunk, 48, texport_player_name, 0, max_char);
+            Array.Copy(chunk, 50, texport_player_name, 0, max_char);
 
             string player_name = System.Text.Encoding.Default.GetString(texport_player_name);
 
@@ -201,7 +201,7 @@ namespace AATF_15
 
             byte[] texport_shirt_name = new byte[max_char];
 
-            Array.Copy(chunk, 94, texport_shirt_name, 0, max_char);
+            Array.Copy(chunk, 96, texport_shirt_name, 0, max_char);
 
             string shirt_name = System.Text.Encoding.Default.GetString(texport_shirt_name);
 
@@ -773,10 +773,10 @@ namespace AATF_15
 
             // Decrypt it
             byte[] texport;
-            texport = BinFileUtility.BinFile.decryptFile(raw_texport);
+            texport = PES16Decrypter.decryptFile(raw_texport);
 
-            // Go 128 bytes in to get the team name
-            int team_name_offset = 128;
+            // Go 65728 bytes in to get the team name
+            int team_name_offset = 65728;
 
             byte[] texport_team_name = new byte[10];
 
@@ -795,7 +795,7 @@ namespace AATF_15
             squad.team_name = team_name_str.TrimEnd(chars_to_trim);
 
             // Get the teamID
-            int team_ID_offset = 94524;
+            int team_ID_offset = 66036;
             byte[] texport_team_ID = new byte[2];
 
             Array.Copy(texport, team_ID_offset, texport_team_ID, 0, 2);
@@ -803,7 +803,7 @@ namespace AATF_15
             squad.teamID = BitConverter.ToInt16(texport_team_ID, 0);
 
             // Go to the first player in the export
-            int player1_offset = 5338532;
+            int player1_offset = 5310048;
 
             // Set the pointer
             pointer = player1_offset;
@@ -812,7 +812,7 @@ namespace AATF_15
             while (true)
             {
                 // Now we have a pointer to the start of the first player
-                int chunk_size = 180;
+                int chunk_size = 184;
                 byte[] chunk = new byte[chunk_size];
                 Array.Copy(texport, pointer, chunk, 0, chunk_size);
 
@@ -861,6 +861,9 @@ namespace AATF_15
                 line.Goalkeeping = readGoalkeeping(chunk);
                 line.Saving = readSaving(chunk);
                 line.Stamina = readStamina(chunk);
+                line.Clearing = readClearing(chunk);
+                line.Reflexes = readReflexes(chunk);
+                line.Coverage = readCoverage(chunk);
 
                 line.Form = readForm(chunk);
                 line.Injury_Resistance = readInjuryTol(chunk);
@@ -869,6 +872,18 @@ namespace AATF_15
                 line.playing_style = readPlayerStyle(chunk);
                 line.Cards_Style = readCardsPlayStyles(chunk);
                 line.Cards_Skills = readCardsPlaySkills(chunk);
+
+                // Aethetics
+                line.commentary_name = readCommentaryName(chunk);
+                line.ani_celebration_1 = readAniCelebration1(chunk);
+                line.ani_celebration_2 = readAniCelebration2(chunk);
+                line.ani_free_kick = readAniFreeKick(chunk);
+                line.ani_corner = readAniCornerKick(chunk);
+                line.ani_penalty = readAniPenaltyKick(chunk);
+                line.ani_arms_dribbling = readAniArmsDribbling(chunk);
+                line.ani_arms_running = readAniArmsRunning(chunk);
+                line.ani_hunch_dribbling = readAniHunchDribbling(chunk);
+                line.ani_hunch_running = readAniHunchRunning(chunk);
 
                 // Add to the global table
                 squad.team_players.Add(line);
