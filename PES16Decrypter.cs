@@ -50,7 +50,6 @@ namespace AATF_15
                     FileHeader header = (FileHeader)Marshal.PtrToStructure(descriptor.fileHeader, typeof(FileHeader));
                     output = new byte[header.dataSize];
                     Marshal.Copy((IntPtr)descriptor.data, output, 0, (int)header.dataSize);
-                    Marshal.FreeCoTaskMem(descriptor.fileHeader); // hopefully this properly cleans up the FileHeader with the FileDescriptor allocated by the DLL
                 }
             }
             return output;
