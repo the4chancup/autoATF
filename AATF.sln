@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AATF_15", "AATF_15.csproj", "{98AF1B0A-599B-4FB2-ADF4-6D8E2F0DE431}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AATF", "AATF.csproj", "{98AF1B0A-599B-4FB2-ADF4-6D8E2F0DE431}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

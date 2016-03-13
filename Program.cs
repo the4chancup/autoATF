@@ -136,7 +136,7 @@ namespace AATF_15
 
             bool ini_setup = false;
 
-            Console.Title = "autoATF - PES 2016 - Winter 2016 Edition - v0.1";
+            Console.Title = "autoATF - PES 2016 - Winter 2016 Edition - v0.3";
 
             // INI setup
             ini_setup = Parser.setup_switches();
