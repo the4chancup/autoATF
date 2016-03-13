@@ -89,8 +89,11 @@ namespace AATF_15
             teams_4cc.Add(i++, "/wsg/");
             teams_4cc.Add(i++, "/x/");
             teams_4cc.Add(i++, "/y/");
-            /* Backups (20) are 761-780, extras (18) are 783-800, VGLs (32) are 801-840, pes' (20) are 841-860, invitationals (40) are 861-892 */
-            /* Pleasure horn is now /psh/ and /4ccc/ has been merged */
+            /* Backups (20) are 761-780
+             * Extras (18) are 783-800
+             * VGLs (40) are 801-840
+             * PES' (20) are 841-860,
+             * Invitationals (32) are 861-892 */
             teams_4cc.Add(i++, "/b1/");
             teams_4cc.Add(i++, "/b2/");
             teams_4cc.Add(i++, "/b3/");
@@ -112,7 +115,7 @@ namespace AATF_15
             teams_4cc.Add(i++, "/b19/");
             teams_4cc.Add(i++, "/b20/");
             teams_4cc.Add(i++, "/4ccc/");
-            teams_4cc.Add(i++, "/psh/");
+            teams_4cc.Add(i++, "/psh/"); // Pleasure Horn
             teams_4cc.Add(i++, "/e1/");
             teams_4cc.Add(i++, "/e2/");
             teams_4cc.Add(i++, "/e3/");
@@ -163,6 +166,14 @@ namespace AATF_15
             teams_4cc.Add(i++, "/v30/");
             teams_4cc.Add(i++, "/v31/");
             teams_4cc.Add(i++, "/v32/");
+            teams_4cc.Add(i++, "/v33/");
+            teams_4cc.Add(i++, "/v34/");
+            teams_4cc.Add(i++, "/v35/");
+            teams_4cc.Add(i++, "/v36/");
+            teams_4cc.Add(i++, "/v37/");
+            teams_4cc.Add(i++, "/v38/");
+            teams_4cc.Add(i++, "/v39/");
+            teams_4cc.Add(i++, "/v40/");
             teams_4cc.Add(i++, "/pes1/");
             teams_4cc.Add(i++, "/pes2/");
             teams_4cc.Add(i++, "/pes3/");
@@ -215,14 +226,6 @@ namespace AATF_15
             teams_4cc.Add(i++, "/i30/");
             teams_4cc.Add(i++, "/i31/");
             teams_4cc.Add(i++, "/i32/");
-            teams_4cc.Add(i++, "/i33/");
-            teams_4cc.Add(i++, "/i34/");
-            teams_4cc.Add(i++, "/i35/");
-            teams_4cc.Add(i++, "/i36/");
-            teams_4cc.Add(i++, "/i37/");
-            teams_4cc.Add(i++, "/i38/");
-            teams_4cc.Add(i++, "/i39/");
-            teams_4cc.Add(i++, "/i40/");
             return teams_4cc;
         }
     }
