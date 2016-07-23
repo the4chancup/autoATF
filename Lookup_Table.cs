@@ -89,13 +89,13 @@ namespace AATF_15
             teams_4cc.Add(i++, "/wsg/");
             teams_4cc.Add(i++, "/x/");
             teams_4cc.Add(i++, "/y/");
-            /* Backups (20) are 761-780
+            /* Backups (20) are 761-780 - note that /his/ and /p/ are newcomers
              * Extras (18) are 783-800
              * VGLs (40) are 801-840
              * PES' (20) are 841-860,
              * Invitationals (32) are 861-892 */
-            teams_4cc.Add(i++, "/b1/");
-            teams_4cc.Add(i++, "/b2/");
+            teams_4cc.Add(i++, "/his/"); //previously /b1/
+            teams_4cc.Add(i++, "/p/"); //previously /b2/
             teams_4cc.Add(i++, "/b3/");
             teams_4cc.Add(i++, "/b4/");
             teams_4cc.Add(i++, "/b5/");

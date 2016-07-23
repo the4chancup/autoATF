@@ -42,7 +42,15 @@ namespace AATF_15
             foreach (player line in squad.team_players)
             {
                 // Add height to running total for team
-                heights.height_total += line.height;
+                // SEC16 - Players below 175cm will be counted as 175 for squad totals
+                if ((line.height < constants.height_bracket_6) && (line.height >= constants.height_bracket_7))
+                {
+                    heights.height_total += (int)constants.height_bracket_6;
+                }
+                else
+                {
+                    heights.height_total += line.height;
+                }
 
                 // Check for any System1 Stats Players
                 if(line.is_gold_system1 == true || line.is_silver_system1 == true || line.is_regular_system1 == true || line.is_goalkeeper_system1 == true)
@@ -81,10 +89,11 @@ namespace AATF_15
                 {
                     heights.bracket_5++;
                 }
-                else if (line.height >= constants.height_bracket_6)
+                else if (line.height >= constants.height_bracket_7)
                 {
                     heights.bracket_6++;
                 }
+/* -- SEC16 - These brackets have been collapsed into bracket 6
                 else if (line.height >= constants.height_bracket_7)
                 {
                     heights.bracket_7++;
@@ -93,9 +102,10 @@ namespace AATF_15
                 {
                     heights.bracket_8++;
                 }
+*/
                 else if (line.height >= constants.height_minimum_pes)
                 {
-                    Console.WriteLine("MANLET ABUSE:\n" + line.id + "\t" + line.name + " has a height below the 4cc limit of " + constants.height_bracket_8);
+                    Console.WriteLine("MANLET ABUSE:\n" + line.id + "\t" + line.name + " has a height below the 4cc limit of " + constants.height_bracket_7);
                     variables.errors++;
                 }
                 else
@@ -352,11 +362,11 @@ namespace AATF_15
 
             if (heights.bracket_6 < constants.height_bracket_6_limit)
             {
-                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_6 + "-" + (constants.height_bracket_5 - 1) + " bracket");
+                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_5 - 1) + " bracket");
                 Console.WriteLine("\t\t (Has " + heights.bracket_6 + " out of " + constants.height_bracket_6_limit + ")");
                 variables.errors++;
             }
-
+/* -- SEC16 - These brackets have been collapsed into bracket 6
             if (heights.bracket_7 < constants.height_bracket_7_limit)
             {
                 Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too few players in the " + constants.height_bracket_7 + "-" + (constants.height_bracket_6 - 1) + " bracket");
@@ -370,6 +380,7 @@ namespace AATF_15
                 Console.WriteLine("\t\t (Has " + heights.bracket_8 + " out of " + constants.height_bracket_8_limit + ")");
                 variables.errors++;
             }
+*/
         }
     }
 }

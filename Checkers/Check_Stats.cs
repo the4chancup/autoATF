@@ -29,7 +29,8 @@ namespace AATF_15
                line.Coverage == constants.stats_gold &&
                line.Place_Kicking == constants.stats_gold &&
                line.Speed == constants.stats_gold &&
-               line.Stamina == constants.stats_gold)
+               line.Stamina == constants.stats_gold &&
+               line.position != 0) // Can't have medal goalkeepers
             {
                 line.is_gold = true;
             }
@@ -54,7 +55,8 @@ namespace AATF_15
                line.Coverage == constants.stats_gold_system1 &&
                line.Place_Kicking == constants.stats_gold_system1 &&
                line.Speed == constants.stats_gold_system1 &&
-               line.Stamina == constants.stats_gold_system1)
+               line.Stamina == constants.stats_gold_system1 &&
+               line.position != 0) // Can't have medal goalkeepers
             {
                 line.is_gold = true;
                 line.is_gold_system1 = true;
@@ -80,7 +82,8 @@ namespace AATF_15
                line.Coverage == constants.stats_silver &&
                line.Place_Kicking == constants.stats_silver &&
                line.Speed == constants.stats_silver &&
-               line.Stamina == constants.stats_silver)
+               line.Stamina == constants.stats_silver &&
+               line.position != 0) // Can't have medal goalkeepers
             {
                 line.is_silver = true;
             }
@@ -105,7 +108,8 @@ namespace AATF_15
                line.Coverage == constants.stats_silver_system1 &&
                line.Place_Kicking == constants.stats_silver_system1 &&
                line.Speed == constants.stats_silver_system1 &&
-               line.Stamina == constants.stats_silver_system1)
+               line.Stamina == constants.stats_silver_system1 &&
+               line.position != 0) // Can't have medal goalkeepers
             {
                 line.is_silver = true;
                 line.is_silver_system1 = true;
@@ -131,7 +135,8 @@ namespace AATF_15
                line.Coverage == constants.stats_regular &&
                line.Place_Kicking == constants.stats_regular &&
                line.Speed == constants.stats_regular &&
-               line.Stamina == constants.stats_regular)
+               line.Stamina == constants.stats_regular &&
+               line.position != 0) // GKs have different stats to regulars
             {
                 line.is_regular = true;
             }
@@ -156,7 +161,8 @@ namespace AATF_15
                line.Coverage == constants.stats_regular_system1 &&
                line.Place_Kicking == constants.stats_regular_system1 &&
                line.Speed == constants.stats_regular_system1 &&
-               line.Stamina == constants.stats_regular_system1)
+               line.Stamina == constants.stats_regular_system1 &&
+               line.position != 0) // GKs have different stats to regulars
             {
                 line.is_regular = true;
                 line.is_regular_system1 = true;
@@ -182,7 +188,8 @@ namespace AATF_15
                line.Coverage == constants.stats_goalkeeper &&
                line.Place_Kicking == constants.stats_goalkeeper &&
                line.Speed == constants.stats_goalkeeper &&
-               line.Stamina == constants.stats_goalkeeper)
+               line.Stamina == constants.stats_goalkeeper &&
+               line.position == 0) // Make sure only GKs fall into here
             {
                 line.is_goalkeeper = true;
             }
@@ -207,10 +214,21 @@ namespace AATF_15
                line.Coverage == constants.stats_goalkeeper_system1 &&
                line.Place_Kicking == constants.stats_goalkeeper_system1 &&
                line.Speed == constants.stats_goalkeeper_system1 &&
-               line.Stamina == constants.stats_goalkeeper_system1)
+               line.Stamina == constants.stats_goalkeeper_system1 &&
+               line.position == 0) // Make sure only GKs fall into here
             {
-                line.is_goalkeeper = true;
-                line.is_goalkeeper_system1 = true;
+                // SEC16 - Due to the increased keeper stats, there's an interesting quirk whereby if a manager forgets to buff their keepers up to 80, they might be incorrectly marked as using Height System 1
+                // Will put in a special case error here to highlight this
+                if (line.height < constants.height_bracket_3)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " is a GK but has not been buffed to flat 80 stats");
+                    variables.errors++;
+                }
+                else
+                {
+                    line.is_goalkeeper = true;
+                    line.is_goalkeeper_system1 = true;
+                }
             }
 
             // If it doesn't match anything
@@ -304,11 +322,11 @@ namespace AATF_15
                 {
                     regulars++;
                 }
-                /*
+
                 if(line.is_goalkeeper)
                 {
                     regulars++;
-                }*/
+                }
             }
 
             // GOLDS
