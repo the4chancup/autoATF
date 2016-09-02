@@ -35,13 +35,13 @@ namespace AATF_15
         public const uint stats_gold = 99;
         public const uint stats_silver = 88;
         public const uint stats_regular = 77;
-        public const uint stats_goalkeeper = 80;
+        public const uint stats_goalkeeper = 77;
 
         // Summer 2015 Ruleset - All players above 189cm in height get a variable stat nerf
         public const uint stats_gold_system1 = 94;
         public const uint stats_silver_system1 = 84;
         public const uint stats_regular_system1 = 74;
-        public const uint stats_goalkeeper_system1 = 77;
+        public const uint stats_goalkeeper_system1 = 74;
 
         public const uint form_gold = 8;
         public const uint form_silver = 8;
@@ -80,8 +80,8 @@ namespace AATF_15
         public const uint height_bracket_4 = 185;
         public const uint height_bracket_5 = 180;
         public const uint height_bracket_6 = 175;
-        public const uint height_bracket_7 = 155;
-//        public const uint height_bracket_8 = 155; // SEC16 - Brackets 7 and 8 have been collapsed into 6
+        public const uint height_bracket_7 = 170;
+        public const uint height_bracket_8 = 165;
         public const uint height_minimum_pes = 148;
 
         // Height Abuse
@@ -90,20 +90,20 @@ namespace AATF_15
         public const uint system1_height_bracket_2_limit = 1;
         public const uint system1_height_bracket_3_limit = 2;
         public const uint system1_height_bracket_4_limit = 6;
-        public const uint system1_height_limit_total = 4220;
+        public const uint system1_height_limit_total = 4200;
 
         // System 2
         public const uint system2_height_bracket_1_limit = 0;
         public const uint system2_height_bracket_2_limit = 0;
         public const uint system2_height_bracket_3_limit = 0;
         public const uint system2_height_bracket_4_limit = 10;
-        public const uint system2_height_limit_total = 4185;
+        public const uint system2_height_limit_total = 4165;
 
         // Both
         public const uint height_bracket_5_limit = 7;
-        public const uint height_bracket_6_limit = 6;
-        public const uint height_bracket_7_limit = 0;
-        public const uint height_bracket_8_limit = 0;
+        public const uint height_bracket_6_limit = 3;
+        public const uint height_bracket_7_limit = 2;
+        public const uint height_bracket_8_limit = 1;
 
         // Age Abuse
         public const uint age_maximum = 50;
@@ -136,7 +136,7 @@ namespace AATF_15
 
             bool ini_setup = false;
 
-            Console.Title = "autoATF - PES 2016 - Summer 2016 Edition - v0.4";
+            Console.Title = "autoATF - PES 2015 - Autumn 2015 Edition - v2.1";
 
             // INI setup
             ini_setup = Parser.setup_switches();
