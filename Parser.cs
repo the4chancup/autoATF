@@ -106,11 +106,11 @@ namespace AATF_15
             }
 
             // Ensure the pes16decrypter DLL is present, or we won't be able to decrypt any files
-            if(!File.Exists("cygpes16decrypter.dll"))
+            if (!File.Exists("pesXdecryptor.dll"))
             {
                 Console.Write("\tFailed!");
-                Console.WriteLine("\nERROR: cygpes16decrypter.dll not found");
-                Console.WriteLine("\nMake sure the cygpes16decrypter.dll is present in the same directory as the exe");
+                Console.WriteLine("\nERROR: pesXdecryptor.dll not found");
+                Console.WriteLine("\nMake sure the pesXdecryptor.dll is present in the same directory as the exe");
                 Console.WriteLine();
                 return false;
             }

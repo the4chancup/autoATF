@@ -99,6 +99,7 @@ namespace AATF_15
                         compare_value(player_1.Speed, player_2.Speed, "Speed");
                         compare_value(player_1.Explosive_Power, player_2.Explosive_Power, "Explosive_Power");
                         compare_value(player_1.Body_Balance, player_2.Body_Balance, "Body_Balance");
+                        compare_value(player_1.Physical_Contact, player_2.Physical_Contact, "Physical_Contact");
                         compare_value(player_1.Jump, player_2.Jump, "Jump");
                         compare_value(player_1.Goalkeeping, player_2.Goalkeeping, "Goalkeeping");
                         compare_value(player_1.Saving, player_2.Saving, "Saving");

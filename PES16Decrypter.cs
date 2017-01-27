@@ -35,7 +35,7 @@ namespace AATF_15
             public byte* serial;
         };
 
-        [DllImport("cygpes16decrypter.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("pesXdecryptor.dll", CallingConvention = CallingConvention.Cdecl)]
         private unsafe static extern void decrypt(ref FileDescriptor descriptor, byte* input);
 
         public static byte[] decryptFile(byte[] input)

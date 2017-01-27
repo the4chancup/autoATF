@@ -21,6 +21,7 @@ namespace AATF_15
                line.Clearing == constants.stats_gold &&
                line.Reflexes == constants.stats_gold &&
                line.Body_Balance == constants.stats_gold &&
+               line.Physical_Contact == constants.stats_gold &&
                line.Kicking_Power == constants.stats_gold &&
                line.Explosive_Power == constants.stats_gold &&
                line.Jump == constants.stats_gold &&
@@ -47,6 +48,7 @@ namespace AATF_15
                line.Clearing == constants.stats_gold_system1 &&
                line.Reflexes == constants.stats_gold_system1 &&
                line.Body_Balance == constants.stats_gold_system1 &&
+               line.Physical_Contact == constants.stats_gold_system1 &&
                line.Kicking_Power == constants.stats_gold_system1 &&
                line.Explosive_Power == constants.stats_gold_system1 &&
                line.Jump == constants.stats_gold_system1 &&
@@ -74,6 +76,7 @@ namespace AATF_15
                line.Clearing == constants.stats_silver &&
                line.Reflexes == constants.stats_silver &&
                line.Body_Balance == constants.stats_silver &&
+               line.Physical_Contact == constants.stats_silver &&
                line.Kicking_Power == constants.stats_silver &&
                line.Explosive_Power == constants.stats_silver &&
                line.Jump == constants.stats_silver &&
@@ -100,6 +103,7 @@ namespace AATF_15
                line.Clearing == constants.stats_silver_system1 &&
                line.Reflexes == constants.stats_silver_system1 &&
                line.Body_Balance == constants.stats_silver_system1 &&
+               line.Physical_Contact == constants.stats_silver_system1 &&
                line.Kicking_Power == constants.stats_silver_system1 &&
                line.Explosive_Power == constants.stats_silver_system1 &&
                line.Jump == constants.stats_silver_system1 &&
@@ -127,6 +131,7 @@ namespace AATF_15
                line.Clearing == constants.stats_regular &&
                line.Reflexes == constants.stats_regular &&
                line.Body_Balance == constants.stats_regular &&
+               line.Physical_Contact == constants.stats_regular &&
                line.Kicking_Power == constants.stats_regular &&
                line.Explosive_Power == constants.stats_regular &&
                line.Jump == constants.stats_regular &&
@@ -153,6 +158,7 @@ namespace AATF_15
                line.Clearing == constants.stats_regular_system1 &&
                line.Reflexes == constants.stats_regular_system1 &&
                line.Body_Balance == constants.stats_regular_system1 &&
+               line.Physical_Contact == constants.stats_regular_system1 &&
                line.Kicking_Power == constants.stats_regular_system1 &&
                line.Explosive_Power == constants.stats_regular_system1 &&
                line.Jump == constants.stats_regular_system1 &&
@@ -180,6 +186,7 @@ namespace AATF_15
                line.Clearing == constants.stats_goalkeeper &&
                line.Reflexes == constants.stats_goalkeeper &&
                line.Body_Balance == constants.stats_goalkeeper &&
+               line.Physical_Contact == constants.stats_goalkeeper &&
                line.Kicking_Power == constants.stats_goalkeeper &&
                line.Explosive_Power == constants.stats_goalkeeper &&
                line.Jump == constants.stats_goalkeeper &&
@@ -206,6 +213,7 @@ namespace AATF_15
                line.Clearing == constants.stats_goalkeeper_system1 &&
                line.Reflexes == constants.stats_goalkeeper_system1 &&
                line.Body_Balance == constants.stats_goalkeeper_system1 &&
+               line.Physical_Contact == constants.stats_goalkeeper_system1 &&
                line.Kicking_Power == constants.stats_goalkeeper_system1 &&
                line.Explosive_Power == constants.stats_goalkeeper_system1 &&
                line.Jump == constants.stats_goalkeeper_system1 &&

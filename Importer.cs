@@ -71,7 +71,8 @@ namespace AATF_15
         public int Clearing; // NEW PES16
         public int Reflexes; // NEW PES16
 
-        public int Body_Balance;
+        public int Body_Balance; // Body Control in PES17
+        public int Physical_Contact; // NEW PES17
         public int Kicking_Power;
         public int Explosive_Power;
         public int Jump;
@@ -162,7 +163,7 @@ namespace AATF_15
             byte[] playername_hex = new byte[namesize];
             string playername = null;
 
-            Array.Copy(chunk, 0x32, playername_hex, 0, namesize);
+            Array.Copy(chunk, 0x34, playername_hex, 0, namesize);
 
             playername = System.Text.Encoding.Default.GetString(playername_hex);
 
@@ -188,7 +189,7 @@ namespace AATF_15
             byte[] shirtname_hex = new byte[shirtsize];
             string shirtname = null;
 
-            Array.Copy(chunk, 0x60, shirtname_hex, 0, shirtsize);
+            Array.Copy(chunk, 0x62, shirtname_hex, 0, shirtsize);
 
             shirtname = System.Text.Encoding.Default.GetString(shirtname_hex);
 
@@ -210,7 +211,8 @@ namespace AATF_15
 
         static int readMainPosition(byte[] chunk)
         {
-            // byte 0x20, bits 1-4
+            // byte 0x20, bits 7-8
+            // byte 0x21, bits 1-2
 
             // 0 = GK
             // 1 = CB
@@ -226,51 +228,56 @@ namespace AATF_15
             // 11 = SS
             // 12 = CF
 
-            return (chunk[0x20] & 0x0F);
+            int by20, by21;
+
+            by20 = (chunk[0x20] & 0xC0) >> 6;
+            by21 = (chunk[0x21] & 0x03) << 2;
+            
+            return by20 | by21;
         }
 
         static int[] readPositionRatings(byte[] chunk)
         {
             int[] rat = new int[13];
             
-            // CF - byte 0x25, bits 3-4
-            rat[12] = (chunk[0x25] & 0x0C) >> 2;
+            // CF - byte 0x26, bits 7-8
+            rat[12] = (chunk[0x26] & 0xC0) >> 6;
 
-            // SS - byte 0x25, bits 5-6
-            rat[11] = (chunk[0x25] & 0x30) >> 4;
+            // SS - byte 0x27, bits 1-2
+            rat[11] = (chunk[0x27] & 0x03);
 
-            // RWF - byte 0x26, bits 1-2
-            rat[10] = (chunk[0x26] & 0x03);
+            // RWF - byte 0x27, bits 5-6
+            rat[10] = (chunk[0x27] & 0x30) >> 4;
 
-            // LWF - byte 0x25, bits 7-8
-            rat[9] = (chunk[0x25] & 0xC0) >> 6;
+            // LWF - byte 0x27, bits 3-4
+            rat[9] = (chunk[0x27] & 0x0C) >> 2;
 
-            // AMF - byte 0x26, bits 3-4
-            rat[8] = (chunk[0x26] & 0x0C) >> 2;
+            // AMF - byte 0x27, bits 7-8
+            rat[8] = (chunk[0x27] & 0xC0) >> 6;
 
-            // RMF - byte 0x27, bits 3-4
-            rat[7] = (chunk[0x27] & 0x0C) >> 2;
+            // RMF - byte 0x28, bits 7-8
+            rat[7] = (chunk[0x28] & 0xC0) >> 6;
 
-            // LMF - byte 0x27, bits 1-2
-            rat[6] = (chunk[0x27] & 0x03);
+            // LMF - byte 0x28, bits 5-6
+            rat[6] = (chunk[0x28] & 0x30) >> 4;
 
-            // CMF - byte 0x26, bits 7-8
-            rat[5] = (chunk[0x26] & 0xC0) >> 6;
+            // CMF - byte 0x28, bits 3-4
+            rat[5] = (chunk[0x28] & 0x0C) >> 2;
 
-            // DMF - byte 0x26, bits 5-6
-            rat[4] = (chunk[0x26] & 0x30) >> 4;
+            // DMF - byte 0x28, bits 1-2
+            rat[4] = (chunk[0x28] & 0x03);
 
-            // RB - byte 0x28, bits 1-2
-            rat[3] = (chunk[0x28] & 0x03);
+            // RB - byte 0x29, bits 5-6
+            rat[3] = (chunk[0x29] & 0x30) >> 4;
 
-            // LB - byte 0x27, bits 7-8
-            rat[2] = (chunk[0x27] & 0xC0) >> 6;
+            // LB - byte 0x29, bits 3-4
+            rat[2] = (chunk[0x29] & 0x0C) >> 2;
 
-            // CB - byte 0x27, bits 5-6
-            rat[1] = (chunk[0x27] & 0x30) >> 4;
+            // CB - byte 0x29, bits 1-2
+            rat[1] = (chunk[0x29] & 0x03);
 
-            // GK - byte 0x28, bits 3-4
-            rat[0] = (chunk[0x28] & 0x0C) >> 2;
+            // GK - byte 0x29, bits 7-8
+            rat[0] = (chunk[0x29] & 0xC0) >> 6;
 
             // 0 = C
             // 1 = B
@@ -309,17 +316,17 @@ namespace AATF_15
 
         static int readAge(byte[] chunk)
         {
-            // byte 0x2B, bits 1-6
-            return (chunk[0x2B] & 0x3F);
+            // byte 0x20, bits 1-6
+            return (chunk[0x20] & 0x3F);
         }
 
         static int readStrongerFoot(byte[] chunk)
         {
-            // byte 0x2D, bit 5
+            // byte 0x2E, bit 4
             // 0 = R
             // 1 = L
 
-            return (chunk[0x2D] & 0x10) >> 4;
+            return (chunk[0x2E] & 0x08) >> 3;
         }
 
         static int readAtkProw(byte[] chunk)
@@ -342,14 +349,8 @@ namespace AATF_15
 
         static int readBallControl(byte[] chunk)
         {
-            // byte 0x21, bits 3-8
-            // byte 0x22, bit 1
-            int by21, by22;
-
-            by21 = (chunk[0x21] & 0xFC) >> 2;
-            by22 = (chunk[0x22] & 0x01) << 6;
-
-            return by21 | by22;
+            // byte 0x22, bits 1-7
+            return chunk[0x22] & 0x7F;
         }
 
         static int readLowPass(byte[] chunk)
@@ -385,14 +386,14 @@ namespace AATF_15
 
         static int readPlaceKicking(byte[] chunk)
         {
-            // byte 0x29, bits 3-8
-            // byte 0x2A, bit 1
-            int by29, by2A;
+            // byte 0x2A, 7-8
+            // byte 0x2B, 1-5
+            int by2A, by2B;
 
-            by29 = (chunk[0x29] & 0xFC) >> 2;
-            by2A = (chunk[0x2A] & 0x01) << 6;
+            by2A = (chunk[0x2A] & 0xC0) >> 6;
+            by2B = (chunk[0x2B] & 0x1F) << 2;
 
-            return by29 | by2A;
+            return by2A | by2B;
         }
 
         static int readControlledSpin(byte[] chunk)
@@ -427,29 +428,17 @@ namespace AATF_15
 
         static int readBallWinning(byte[] chunk)
         {
-            // byte 0x22, bits 2-8
-            return (chunk[0x22] & 0xFE) >> 1;
+            // byte 0x22, bit 8
+            // byte 0x23, bits 1-6
+            int by22, by23;
+
+            by22 = (chunk[0x22] & 0x80) >> 7;
+            by23 = (chunk[0x23] & 0x3F) << 1;
+
+            return by22 | by23;
         }
 
         static int readKickingPower(byte[] chunk)
-        {
-            // byte 0x1C, bit 8
-            // byte 0x1D, bits 1-6
-            int by1c, by1d;
-
-            by1c = (chunk[0x1C] & 0x80) >> 7;
-            by1d = (chunk[0x1D] & 0x3F) << 1;
-
-            return by1c | by1d;
-        }
-
-        static int readSpeed(byte[] chunk)
-        {
-            // byte 0x2A, bits 2-8
-            return (chunk[0x2A] & 0xFE) >> 1;
-        }
-
-        static int readExplosivePower(byte[] chunk)
         {
             // byte 0x1D, bits 7-8
             // byte 0x1E, bits 1-5
@@ -461,13 +450,19 @@ namespace AATF_15
             return by1d | by1e;
         }
 
-        static int readBodyBalance(byte[] chunk)
+        static int readSpeed(byte[] chunk)
         {
-            // byte 0x1C, bits 1-7
-            return (chunk[0x1C] & 0x7F);
+            // byte 0x2C, bit 8
+            // byte 0x2D, bits 1-6
+            int by2c, by2d;
+
+            by2c = (chunk[0x2C] & 0x80) >> 7;
+            by2d = (chunk[0x2D] & 0x3F) << 1;
+
+            return by2c | by2d;
         }
 
-        static int readJump(byte[] chunk)
+        static int readExplosivePower(byte[] chunk)
         {
             // byte 0x1E, bits 6-8
             // byte 0x1F, bits 1-4
@@ -477,6 +472,30 @@ namespace AATF_15
             by1f = (chunk[0x1F] & 0x0F) << 3;
 
             return by1e | by1f;
+        }
+
+        static int readBodyBalance(byte[] chunk)
+        {
+            // byte 0x1C, bits 1-7
+            return (chunk[0x1C] & 0x7F);
+        }
+
+        static int readPhysicalContact(byte[] chunk)
+        {
+            // byte 0x1C, bit 8
+            // byte 0x1D, bits 1-6
+            int by1c, by1d;
+
+            by1c = (chunk[0x1C] & 0x80) >> 7;
+            by1d = (chunk[0x1D] & 0x3F) << 1;
+
+            return by1c | by1d;
+        }
+
+        static int readJump(byte[] chunk)
+        {
+            // byte 0x24, bits 1-7
+            return (chunk[0x24] & 0x7F);
         }
 
         static int readGoalkeeping(byte[] chunk)
@@ -536,8 +555,14 @@ namespace AATF_15
 
         static int readCoverage(byte[] chunk)
         {
-            // byte 0x23, bits 1-7
-            return (chunk[0x23] & 0x7F);
+            // byte 0x25, bits 6-8
+            // byte 0x26, bits 1-4
+            int by25, by26;
+
+            by25 = (chunk[0x25] & 0xE0) >> 5;
+            by26 = (chunk[0x26] & 0x0F) << 3;
+
+            return by25 | by26;
         }
 
         static int readForm(byte[] chunk)
@@ -554,20 +579,19 @@ namespace AATF_15
 
         static int readWeakFootUsage(byte[] chunk)
         {
-            // byte 0x25, bits 1-2
-            return (chunk[0x25] & 0x03) + 1;
+            // byte 0x26, bits 5-6
+            return ((chunk[0x26] & 0x30) >> 4) + 1;
         }
 
         static int readWeakFootAccuracy(byte[] chunk)
         {
-            // byte 0x24, bits 7-8
-            return ((chunk[0x24] & 0xC0) >> 6) + 1;
+            // byte 0x23, bits 7-8
+            return ((chunk[0x23] & 0xC0) >> 6) + 1;
         }
 
         static int readPlayerStyle(byte[] chunk)
         {
-            // byte 0x20, bits 6-8
-            // byte 0x21, bits 1-2
+            // byte 0x21, bits 4-8
 
             // 0 = N/A
             // 1 = Goal Poacher
@@ -589,30 +613,25 @@ namespace AATF_15
             // 17 = Offensive Goalkeeper
             // 18 = Defensive Goalkeeper
 
-            int by20, by21;
-
-            by20 = (chunk[0x20] & 0xE0) >> 5;
-            by21 = (chunk[0x21] & 0x03) << 3;
-
-            return by20 | by21;
+            return (chunk[0x21] & 0xF0) >> 4;
         }
 
         static int[] readCardsPlayStyles(byte[] chunk)
         {
-            // byte 0x2D, bits 6-8
-            // byte 0x2E, bits 1-4
+            // byte 0x2E, bits 6-8
+            // byte 0x2F, bits 1-4
             int[] cards = new int[7];
 
-            // by2d = 321xxxxx
-            // by2e = xxxx7654
+            // by2e = 321xxxxx
+            // by2f = xxxx7654
 
-            cards[0] = (chunk[0x2D] & 0x20) >> 5;
-            cards[1] = (chunk[0x2D] & 0x40) >> 6;
-            cards[2] = (chunk[0x2D] & 0x80) >> 7;
-            cards[3] = (chunk[0x2E] & 0x01);
-            cards[4] = (chunk[0x2E] & 0x02) >> 1;
-            cards[5] = (chunk[0x2E] & 0x04) >> 2;
-            cards[6] = (chunk[0x2E] & 0x08) >> 3;
+            cards[0] = (chunk[0x2E] & 0x20) >> 5;
+            cards[1] = (chunk[0x2E] & 0x40) >> 6;
+            cards[2] = (chunk[0x2E] & 0x80) >> 7;
+            cards[3] = (chunk[0x2F] & 0x01);
+            cards[4] = (chunk[0x2F] & 0x02) >> 1;
+            cards[5] = (chunk[0x2F] & 0x04) >> 2;
+            cards[6] = (chunk[0x2F] & 0x08) >> 3;
 
             // 1 = Yes, 0 = No
             // [0] = Trickster
@@ -630,39 +649,39 @@ namespace AATF_15
         {
             int[] cards = new int[28];
 
-            // by2e = 4321xxxx
-            // by2f = 21098765
-            // by30 = 09876543
-            // by31 = 87654321       
+            // by2f = 4321xxxx
+            // by30 = 21098765
+            // by31 = 09876543
+            // by32 = 87654321       
 
-            cards[0]  = (chunk[0x2E] & 0x10) >> 4;
-            cards[1]  = (chunk[0x2E] & 0x20) >> 5;
-            cards[2]  = (chunk[0x2E] & 0x40) >> 6;
-            cards[3]  = (chunk[0x2E] & 0x80) >> 7;
-            cards[4]  = (chunk[0x2F] & 0x01);
-            cards[5]  = (chunk[0x2F] & 0x02) >> 1;
-            cards[6]  = (chunk[0x2F] & 0x04) >> 2;
-            cards[7]  = (chunk[0x2F] & 0x08) >> 3;
-            cards[8]  = (chunk[0x2F] & 0x10) >> 4;
-            cards[9]  = (chunk[0x2F] & 0x20) >> 5;
-            cards[10] = (chunk[0x2F] & 0x40) >> 6;
-            cards[11] = (chunk[0x2F] & 0x80) >> 7;
-            cards[12] = (chunk[0x30] & 0x01);
-            cards[13] = (chunk[0x30] & 0x02) >> 1;
-            cards[14] = (chunk[0x30] & 0x04) >> 2;
-            cards[15] = (chunk[0x30] & 0x08) >> 3;
-            cards[16] = (chunk[0x30] & 0x10) >> 4;
-            cards[17] = (chunk[0x30] & 0x20) >> 5;
-            cards[18] = (chunk[0x30] & 0x40) >> 6;
-            cards[19] = (chunk[0x30] & 0x80) >> 7;
-            cards[20] = (chunk[0x31] & 0x01);
-            cards[21] = (chunk[0x31] & 0x02) >> 1;
-            cards[22] = (chunk[0x31] & 0x04) >> 2;
-            cards[23] = (chunk[0x31] & 0x08) >> 3;
-            cards[24] = (chunk[0x31] & 0x10) >> 4;
-            cards[25] = (chunk[0x31] & 0x20) >> 5;
-            cards[26] = (chunk[0x31] & 0x40) >> 6;
-            cards[27] = (chunk[0x31] & 0x80) >> 7;
+            cards[0]  = (chunk[0x2F] & 0x10) >> 4;
+            cards[1]  = (chunk[0x2F] & 0x20) >> 5;
+            cards[2]  = (chunk[0x2F] & 0x40) >> 6;
+            cards[3]  = (chunk[0x2F] & 0x80) >> 7;
+            cards[4]  = (chunk[0x30] & 0x01);
+            cards[5]  = (chunk[0x30] & 0x02) >> 1;
+            cards[6]  = (chunk[0x30] & 0x04) >> 2;
+            cards[7]  = (chunk[0x30] & 0x08) >> 3;
+            cards[8]  = (chunk[0x30] & 0x10) >> 4;
+            cards[9]  = (chunk[0x30] & 0x20) >> 5;
+            cards[10] = (chunk[0x30] & 0x40) >> 6;
+            cards[11] = (chunk[0x30] & 0x80) >> 7;
+            cards[12] = (chunk[0x31] & 0x01);
+            cards[13] = (chunk[0x31] & 0x02) >> 1;
+            cards[14] = (chunk[0x31] & 0x04) >> 2;
+            cards[15] = (chunk[0x31] & 0x08) >> 3;
+            cards[16] = (chunk[0x31] & 0x10) >> 4;
+            cards[17] = (chunk[0x31] & 0x20) >> 5;
+            cards[18] = (chunk[0x31] & 0x40) >> 6;
+            cards[19] = (chunk[0x31] & 0x80) >> 7;
+            cards[20] = (chunk[0x32] & 0x01);
+            cards[21] = (chunk[0x32] & 0x02) >> 1;
+            cards[22] = (chunk[0x32] & 0x04) >> 2;
+            cards[23] = (chunk[0x32] & 0x08) >> 3;
+            cards[24] = (chunk[0x32] & 0x10) >> 4;
+            cards[25] = (chunk[0x32] & 0x20) >> 5;
+            cards[26] = (chunk[0x32] & 0x40) >> 6;
+            cards[27] = (chunk[0x32] & 0x80) >> 7;
 
             // 1 = Yes, 0 = No
             // [0] = Scissors Feint
@@ -728,14 +747,14 @@ namespace AATF_15
 
         static int readAniCornerKick(byte[] chunk)
         {
-            // byte 0x24, bits 4-6
-            return (((chunk[0x24] & 0x38) >> 3) + 1);
+            // byte 0x25, bits 3-5
+            return (((chunk[0x25] & 0x1C) >> 2) + 1);
         }
 
         static int readAniPenaltyKick(byte[] chunk)
         {
-            // byte 0x29, bits 1-2
-            return ((chunk[0x29] & 0x03) + 1);
+            // byte 0x2A, bits 5-6
+            return (((chunk[0x2A] & 0x30) >> 4) + 1);
         }
 
         static int readAniArmsDribbling(byte[] chunk)
@@ -746,20 +765,26 @@ namespace AATF_15
 
         static int readAniArmsRunning(byte[] chunk)
         {
-            // byte 0x24, bits 1-3
-            return ((chunk[0x24] & 0x07) + 1);
+            // byte 0x24, bit 8
+            // byte 0x25, bits 1-2
+            int by24, by25;
+
+            by24 = ((chunk[0x24] & 0x80) >> 7);
+            by25 = (chunk[0x25] & 0x03);
+
+            return (by24 | by25) + 1;
         }
 
         static int readAniHunchDribbling(byte[] chunk)
         {
-            // byte 0x28, bits 5-6
-            return (((chunk[0x28] & 0x30) >> 4) + 1);
+            // byte 0x2A, bits 1-2
+            return ((chunk[0x2A] & 0x03) + 1);
         }
 
         static int readAniHunchRunning(byte[] chunk)
         {
-            // byte 0x28, bits 7-8
-            return (((chunk[0x28] & 0xC0) >> 6) + 1);
+            // byte 0x2A, bits 3-4
+            return (((chunk[0x2A] & 0x0C) >> 2) + 1);
         }
 
         public static team export_importer(string input_file)
@@ -857,6 +882,7 @@ namespace AATF_15
                 line.Speed = readSpeed(chunk);
                 line.Explosive_Power = readExplosivePower(chunk);
                 line.Body_Balance = readBodyBalance(chunk);
+                line.Physical_Contact = readPhysicalContact(chunk);
                 line.Jump = readJump(chunk);
                 line.Goalkeeping = readGoalkeeping(chunk);
                 line.Saving = readSaving(chunk);
@@ -937,14 +963,17 @@ namespace AATF_15
             teams_4cc = Lookup.setup_teams_4cc();
             team_table = import_team_table(ebin, teams_4cc);
 
-            // Jump to 76 bytes in
-            pointer = 76;
+            // Jump to 120 bytes in
+            pointer = 120;
 
             while (true)
             {
                 // Now we have a pointer to the start of the first player
                 // Grab the next 112 bytes
-                int size_of_player = 112;
+                int size_of_player = 116;
+
+                // PES17 now combines the aesthetics into the player table, grab that too
+                size_of_player += 72;
 
                 byte[] chunk = new byte[size_of_player];
                 Array.Copy(ebin, pointer, chunk, 0, size_of_player);
@@ -997,6 +1026,7 @@ namespace AATF_15
                     line.Speed = readSpeed(chunk);
                     line.Explosive_Power = readExplosivePower(chunk);
                     line.Body_Balance = readBodyBalance(chunk);
+                    line.Physical_Contact = readPhysicalContact(chunk);
                     line.Jump = readJump(chunk);
                     line.Goalkeeping = readGoalkeeping(chunk);
                     line.Saving = readSaving(chunk);
@@ -1038,7 +1068,7 @@ namespace AATF_15
             FileInfo bin = new FileInfo(input_file);
             long bin_length = bin.Length;
 
-            if (bin_length > 5709223)
+            if (bin_length > 5290000)
             {
                 // edit.bin
                 return true;
@@ -1055,7 +1085,7 @@ namespace AATF_15
             Hashtable team_table = new Hashtable();
 
             // Jump to the start of the team table
-            int offset_team1 = 5238696;
+            int offset_team1 = 0x475A90;
 
             pointer = offset_team1;
 

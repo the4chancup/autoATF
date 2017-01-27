@@ -35,7 +35,7 @@ namespace AATF_15
         public const uint stats_gold = 99;
         public const uint stats_silver = 88;
         public const uint stats_regular = 77;
-        public const uint stats_goalkeeper = 80;
+        public const uint stats_goalkeeper = 77;
 
         // Summer 2015 Ruleset - All players above 189cm in height get a variable stat nerf
         public const uint stats_gold_system1 = 94;
@@ -90,14 +90,14 @@ namespace AATF_15
         public const uint system1_height_bracket_2_limit = 1;
         public const uint system1_height_bracket_3_limit = 2;
         public const uint system1_height_bracket_4_limit = 6;
-        public const uint system1_height_limit_total = 4200;
+        public const uint system1_height_limit_total = 4220;
 
         // System 2
         public const uint system2_height_bracket_1_limit = 0;
         public const uint system2_height_bracket_2_limit = 0;
         public const uint system2_height_bracket_3_limit = 0;
         public const uint system2_height_bracket_4_limit = 10;
-        public const uint system2_height_limit_total = 4165;
+        public const uint system2_height_limit_total = 4185;
 
         // Both
         public const uint height_bracket_5_limit = 7;
@@ -136,7 +136,7 @@ namespace AATF_15
 
             bool ini_setup = false;
 
-            Console.Title = "autoATF - PES 2016 - Summer 2016 Edition - v0.4";
+            Console.Title = "autoATF - PES 2017 - Winter 2017 Edition - v1.0";
 
             // INI setup
             ini_setup = Parser.setup_switches();
