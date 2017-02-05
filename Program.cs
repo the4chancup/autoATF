@@ -41,7 +41,7 @@ namespace AATF_15
         public const uint stats_gold_system1 = 94;
         public const uint stats_silver_system1 = 84;
         public const uint stats_regular_system1 = 74;
-        public const uint stats_goalkeeper_system1 = 77;
+        public const uint stats_goalkeeper_system1 = 74;
 
         public const uint form_gold = 8;
         public const uint form_silver = 8;
