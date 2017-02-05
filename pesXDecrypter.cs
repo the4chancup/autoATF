@@ -5,9 +5,9 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace AATF_15
+namespace AATF
 {
-    class PES16Decrypter
+    class pesXDecrypter
     {
         [StructLayout(LayoutKind.Sequential, Pack = 1, Size = 176), Serializable]
         private unsafe struct FileHeader

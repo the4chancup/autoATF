@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace AATF_15
+namespace AATF
 {
     public class player
     {
@@ -798,7 +798,7 @@ namespace AATF_15
 
             // Decrypt it
             byte[] texport;
-            texport = PES16Decrypter.decryptFile(raw_texport);
+            texport = pesXDecrypter.decryptFile(raw_texport);
 
             // Go 65772 bytes in to get the team name
             int team_name_offset = 0x100ec;
@@ -953,7 +953,7 @@ namespace AATF_15
 
             // Decrypt it
             byte[] ebin;
-            ebin = PES16Decrypter.decryptFile(raw_ebin);
+            ebin = pesXDecrypter.decryptFile(raw_ebin);
 
             List<player> player_table = new List<player>();
             Hashtable team_table = new Hashtable();

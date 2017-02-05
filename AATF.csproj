@@ -72,11 +72,11 @@
     <Compile Include="Checkers\Check_Stats.cs" />
     <Compile Include="Checkers\Check_Weakfoot.cs" />
     <Compile Include="Checkers\Height_Abuse.cs" />
-    <Compile Include="PES16Decrypter.cs" />
     <Compile Include="Comparer.cs" />
     <Compile Include="Importer.cs" />
     <Compile Include="Lookup_Table.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="pesXDecrypter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Switches.cs" />

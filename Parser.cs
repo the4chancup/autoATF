@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.IO;
 
-namespace AATF_15
+namespace AATF
 {
     public class IniFile
     {
@@ -105,7 +105,7 @@ namespace AATF_15
                 }
             }
 
-            // Ensure the pes16decrypter DLL is present, or we won't be able to decrypt any files
+            // Ensure the pesXdecryptor DLL is present, or we won't be able to decrypt any files
             if (!File.Exists("pesXdecryptor.dll"))
             {
                 Console.Write("\tFailed!");

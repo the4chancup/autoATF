@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 
 
-namespace AATF_15
+namespace AATF
 {
     class comparer
     {
