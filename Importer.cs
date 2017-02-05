@@ -144,7 +144,7 @@ namespace AATF_15
     {
         public static int pointer;
 
-        private static char[] chars_to_trim = { '\0' };
+        private static char[] chars_to_trim = { '\0' , 'þ' };
 
         static int readPlayerID(byte[] chunk)
         {
@@ -176,7 +176,7 @@ namespace AATF_15
 
             byte[] texport_player_name = new byte[max_char];
 
-            Array.Copy(chunk, 50, texport_player_name, 0, max_char);
+            Array.Copy(chunk, 0x34, texport_player_name, 0, max_char);
 
             string player_name = System.Text.Encoding.Default.GetString(texport_player_name);
 
@@ -202,7 +202,7 @@ namespace AATF_15
 
             byte[] texport_shirt_name = new byte[max_char];
 
-            Array.Copy(chunk, 96, texport_shirt_name, 0, max_char);
+            Array.Copy(chunk, 0x62, texport_shirt_name, 0, max_char);
 
             string shirt_name = System.Text.Encoding.Default.GetString(texport_shirt_name);
 
@@ -800,8 +800,8 @@ namespace AATF_15
             byte[] texport;
             texport = PES16Decrypter.decryptFile(raw_texport);
 
-            // Go 65728 bytes in to get the team name
-            int team_name_offset = 65728;
+            // Go 65772 bytes in to get the team name
+            int team_name_offset = 0x100ec;
 
             byte[] texport_team_name = new byte[10];
 
@@ -820,7 +820,7 @@ namespace AATF_15
             squad.team_name = team_name_str.TrimEnd(chars_to_trim);
 
             // Get the teamID
-            int team_ID_offset = 66036;
+            int team_ID_offset = 0x10054;
             byte[] texport_team_ID = new byte[2];
 
             Array.Copy(texport, team_ID_offset, texport_team_ID, 0, 2);
@@ -828,7 +828,7 @@ namespace AATF_15
             squad.teamID = BitConverter.ToInt16(texport_team_ID, 0);
 
             // Go to the first player in the export
-            int player1_offset = 5310048;
+            int player1_offset = 0x510840;
 
             // Set the pointer
             pointer = player1_offset;
@@ -837,7 +837,7 @@ namespace AATF_15
             while (true)
             {
                 // Now we have a pointer to the start of the first player
-                int chunk_size = 184;
+                int chunk_size = 188;
                 byte[] chunk = new byte[chunk_size];
                 Array.Copy(texport, pointer, chunk, 0, chunk_size);
 
@@ -969,7 +969,7 @@ namespace AATF_15
             while (true)
             {
                 // Now we have a pointer to the start of the first player
-                // Grab the next 112 bytes
+                // Grab the next 116 bytes
                 int size_of_player = 116;
 
                 // PES17 now combines the aesthetics into the player table, grab that too
@@ -1068,7 +1068,7 @@ namespace AATF_15
             FileInfo bin = new FileInfo(input_file);
             long bin_length = bin.Length;
 
-            if (bin_length > 5290000)
+            if (bin_length < 5600000)
             {
                 // edit.bin
                 return true;
