@@ -67,9 +67,9 @@ namespace AATF
         public const uint positions_minimum_mf = 1;
         public const uint positions_minimum_fw = 1;
 
-        public const uint players_gold = 1;
-        public const uint players_silver = 4;
-        public const uint players_regular_and_gk = 18;
+        public const uint players_gold = 2;
+        public const uint players_silver = 2;
+        public const uint players_regular_and_gk = 19;
 
         public const uint height_maximum_pes = 210;
         public const uint height_maximum_4cc = 205;
