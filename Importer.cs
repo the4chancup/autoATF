@@ -108,9 +108,13 @@ namespace AATF
         public bool is_regular_system1;
         public bool is_goalkeeper_system1;
 
+        public bool is_multipos_system2;
+
         public bool is_defender;
         public bool is_midfielder;
         public bool is_striker;
+
+        public uint height_bracket;
 
         // Player Position Proficiency
         public bool position_gk;

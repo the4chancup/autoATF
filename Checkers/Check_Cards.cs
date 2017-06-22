@@ -30,6 +30,10 @@ namespace AATF
                 }
             }
 
+            // Count trick cards
+            uint trickCount = 0;
+            for (uint i = 0; i < constants.trick_cards.Length; ++i) { trickCount += (uint)line.Cards_Skills[constants.trick_cards[i]]; }
+
             // Captaincy Cards are excluded from the limit
             if(line.Cards_Skills[25] == 1)
             {
@@ -55,7 +59,12 @@ namespace AATF
             }
             else if ((line.is_silver) || (line.is_silver_system1))
             {
-                if (total_cards > constants.cards_limit_silver)
+                trickCount = Math.Min(trickCount, constants.trick_cards_silver);
+                if (trickCount > 0)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " has " + trickCount + " free trick card(s)");
+                }
+                if (total_cards-trickCount > constants.cards_limit_silver)
                 {
                     if ((total_cards == constants.cards_limit_silver + 1) && (captaincy))
                     {
@@ -64,23 +73,28 @@ namespace AATF
                     }
                     else
                     {
-                        Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + total_cards + ", can only have " + constants.cards_limit_silver + " max)");
+                        Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + (total_cards-trickCount) + ", can only have " + constants.cards_limit_silver + " max and " + constants.trick_cards_silver + " free trick(s))");
                         variables.errors++;
                     }
                 }
             }
             else if ((line.is_gold) || (line.is_gold_system1))
             {
-                if (total_cards > constants.cards_limit_gold)
+                trickCount = Math.Min(trickCount, constants.trick_cards_gold);
+                if (trickCount > 0)
                 {
-                    if ((total_cards == constants.cards_limit_gold + 1) && (captaincy))
+                    Console.WriteLine(line.id + "\t" + line.name + " has " + trickCount + " free trick card(s)");
+                }
+                if (total_cards - trickCount > constants.cards_limit_gold)
+                {
+                    if ((total_cards-trickCount == constants.cards_limit_gold + 1) && (captaincy))
                     {
                         Console.WriteLine(line.id + "\t" + line.name + " has CAPTAINCY");
                         squad.captains++;
                     }
                     else
                     {
-                        Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + total_cards + ", can only have " + constants.cards_limit_gold + " max)");
+                        Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + total_cards + ", can only have " + constants.cards_limit_gold + " max and "+constants.trick_cards_gold+" free trick(s))");
                         variables.errors++;
                     }
                 }

@@ -28,6 +28,30 @@ namespace AATF
         public const string navyseals = "What the fuck did you just fucking say about me, you little bitch? I’ll have you know I graduated top of my class in the Navy Seals, and I’ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I’m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You’re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that’s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little “clever” comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn’t, you didn’t, and now you’re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You’re fucking dead, kiddo.";
     }
 
+    public class heightsystem
+    {
+        // constructor
+        public heightsystem (uint id, uint[] limits, uint total, uint min_double_a, string desc)
+        {
+            // numeric identifier
+            this.id = id;
+            // description (used for printing when deducing system)
+            this.desc = desc;
+            // limits for each height tier
+            this.limits = limits;
+            // total height limit
+            this.total_limit = total;
+            // minimum bracket where two A positions are allowed
+            this.min_double_a_bracket = min_double_a;
+        }
+       
+        public uint id { get; }
+        public uint[] limits { get; }
+        public uint total_limit { get; }
+        public uint min_double_a_bracket { get; }
+        public string desc { get; }
+    }
+
     public static class constants
     {
         public const uint players_per_team = 23;
@@ -62,6 +86,10 @@ namespace AATF
         public const uint cards_limit_silver = 3;
         public const uint cards_limit_gold = 4;
 
+        public static readonly uint[] trick_cards = { 0, 1, 2, 3, 4, 5, 16 };
+        public const uint trick_cards_silver = 1;
+        public const uint trick_cards_gold = 1;
+
         public const uint positions_minimum_gk = 2;
         public const uint positions_minimum_def = 2;
         public const uint positions_minimum_mf = 1;
@@ -73,37 +101,15 @@ namespace AATF
 
         public const uint height_maximum_pes = 210;
         public const uint height_maximum_4cc = 205;
-
-        public const uint height_bracket_1 = 200;
-        public const uint height_bracket_2 = 195;
-        public const uint height_bracket_3 = 190;
-        public const uint height_bracket_4 = 185;
-        public const uint height_bracket_5 = 180;
-        public const uint height_bracket_6 = 175;
-        public const uint height_bracket_7 = 155;
-//        public const uint height_bracket_8 = 155; // SEC16 - Brackets 7 and 8 have been collapsed into 6
         public const uint height_minimum_pes = 148;
 
-        // Height Abuse
-        // System 1
-        public const uint system1_height_bracket_1_limit = 1;
-        public const uint system1_height_bracket_2_limit = 1;
-        public const uint system1_height_bracket_3_limit = 2;
-        public const uint system1_height_bracket_4_limit = 6;
-        public const uint system1_height_limit_total = 4220;
+        // height brackets as array
+        public static readonly uint[] height_brackets = { 200, 195, 190, 185, 180, 175, 155 };
 
-        // System 2
-        public const uint system2_height_bracket_1_limit = 0;
-        public const uint system2_height_bracket_2_limit = 0;
-        public const uint system2_height_bracket_3_limit = 0;
-        public const uint system2_height_bracket_4_limit = 10;
-        public const uint system2_height_limit_total = 4185;
-
-        // Both
-        public const uint height_bracket_5_limit = 7;
-        public const uint height_bracket_6_limit = 6;
-        public const uint height_bracket_7_limit = 0;
-        public const uint height_bracket_8_limit = 0;
+        // Height Abuse System 1
+        public static readonly heightsystem system1 = new heightsystem(1, new uint[] { 1, 1, 2, 6, 7, 6, 0 }, 4220, 999, "all players above 189cm have a variable stats nerf");
+        // Height Abuse System 2
+        public static readonly heightsystem system2 = new heightsystem(2, new uint[] { 0, 0, 0, 10, 7, 6, 0 }, 4185, 5, "no players above 189cm; two A positions for players below 180cm");
 
         // Age Abuse
         public const uint age_maximum = 50;
