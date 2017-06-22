@@ -99,16 +99,21 @@ namespace AATF
                 Console.WriteLine(line.id + "\t" + line.name + " has no proficiency in any position");
                 variables.errors++;
             }
-            else if(a_ratings >= 2)
+            else if(a_ratings == 2)
             {
-                // Player has an A rating in more than 1 position
-                Console.WriteLine(line.id + "\t" + line.name + " has proficiency in more than one position");
+                // Player has two A ratings; could be Height Abuse System 2
+                line.is_multipos_system2 = true;
+            }
+            else if(a_ratings >= 3)
+            {
+                // Player has an A rating in more than 2 positions, always forbidden
+                Console.WriteLine(line.id + "\t" + line.name + " has proficiency in more than two positions");
                 variables.errors++;
             }
             else // a_ratings == 1
             {
                 // Check if the only A rating is the registered position
-                if(line.position != a_position)
+                if(!line.is_multipos_system2 && line.position != a_position)
                 {
                     Console.WriteLine(line.id + "\t" + line.name + " is registered in position " + Position_Lookup(line.position) + " but has an A Rating in " + Position_Lookup(a_position));
                     variables.errors++;

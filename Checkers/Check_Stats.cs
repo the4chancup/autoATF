@@ -227,7 +227,7 @@ namespace AATF
             {
                 // SEC16 - Due to the increased keeper stats, there's an interesting quirk whereby if a manager forgets to buff their keepers up to 80, they might be incorrectly marked as using Height System 1
                 // Will put in a special case error here to highlight this
-                if (line.height < constants.height_bracket_3)
+                if (line.height < constants.height_brackets[2])
                 {
                     Console.WriteLine(line.id + "\t" + line.name + " is a GK but has not been buffed to flat 80 stats");
                     variables.errors++;
