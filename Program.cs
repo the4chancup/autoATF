@@ -142,7 +142,7 @@ namespace AATF
 
             bool ini_setup = false;
 
-            Console.Title = "autoATF - PES 2017 - Winter 2017 Edition - v1.1";
+            Console.Title = "autoATF - PES 2017 - Summer 2017 Edition - v1.3";
 
             // INI setup
             ini_setup = Parser.setup_switches();
