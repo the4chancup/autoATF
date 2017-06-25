@@ -11,18 +11,25 @@ namespace AATF
     {
         public static Hashtable setup_team_table()
         {
-            Hashtable team_table = new Hashtable();
+            Hashtable teamplayer_table = new Hashtable();
+
             // since all team IDs are in order we can loop through them
             for (int team_id = 701; team_id <= 892; team_id++)
             {
                 // 23 players per team
                 for (int i = 1; i <= 23; i++)
                 {
+                    teamplayer teamplayer_entry = new teamplayer();
+
                     // the first three digits of a player ID are the team ID, the last two 01-23
-                    team_table.Add(team_id * 100 + i, team_id);
+                    teamplayer_entry.teamplayer_table_team = team_id;
+                    teamplayer_entry.teamplayer_table_index = i;
+                    teamplayer_entry.teamplayer_table_player = team_id * 100 + i;
+
+                    teamplayer_table.Add(teamplayer_entry.teamplayer_table_player, teamplayer_entry);
                 }
             }
-            return team_table;
+            return teamplayer_table;
         }
 
         public static Hashtable setup_teams_4cc()
