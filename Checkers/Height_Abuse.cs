@@ -13,7 +13,6 @@ namespace AATF
             uint height_total = 0;
 
             uint system1_stats = 0;
-            int system_type = 0; // 0 = unknown, 1 = system1, 2 = system2
 
             List<player> multipos = new List<player>();
 

@@ -66,14 +66,16 @@ namespace AATF
             // This position should be the registered position
             int i = 0;
             int a_ratings = 0;
-            int a_position = 0;
+            int a_position = -1;
+            int a_second_position = -1;
 
             for(i=0;i<13;i++)
             {
                 if(line.PosRats[i] == 2)
                 {
                     a_ratings++;
-                    a_position = i;
+                    if (a_position == -1) { a_position = i; }
+                    else if (a_second_position == -1) { a_second_position = i; line.is_multipos_system2 = true; }
                 }
                 else if(line.PosRats[i] == 1)
                 {
@@ -99,23 +101,21 @@ namespace AATF
                 Console.WriteLine(line.id + "\t" + line.name + " has no proficiency in any position");
                 variables.errors++;
             }
-            else if(a_ratings == 2)
-            {
-                // Player has two A ratings; could be Height Abuse System 2
-                line.is_multipos_system2 = true;
-            }
             else if(a_ratings >= 3)
             {
                 // Player has an A rating in more than 2 positions, always forbidden
                 Console.WriteLine(line.id + "\t" + line.name + " has proficiency in more than two positions");
                 variables.errors++;
             }
-            else // a_ratings == 1
+            else // a_ratings == 1 or a_ratings == 2
             {
                 // Check if the only A rating is the registered position
-                if(!line.is_multipos_system2 && line.position != a_position)
+                if (line.position != a_position && line.position != a_second_position)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " is registered in position " + Position_Lookup(line.position) + " but has an A Rating in " + Position_Lookup(a_position));
+                    string posList = "";
+                    if (!line.is_multipos_system2) { posList = Position_Lookup(a_position); }
+                    else { posList = Position_Lookup(a_position) + " and " + Position_Lookup(a_second_position); }
+                    Console.WriteLine(line.id + "\t" + line.name + " is registered in position " + Position_Lookup(line.position) + " but has an A Rating in " + posList);
                     variables.errors++;
                 }
                 else

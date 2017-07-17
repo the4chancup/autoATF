@@ -113,7 +113,61 @@ namespace AATF
 
         // Age Abuse
         public const uint age_maximum = 50;
-        public const uint age_minimum = 15;        
+        public const uint age_minimum = 15;
+
+        // free and required styles; these lists must be sorted
+        public static readonly uint[] free_styles = { };
+        public static readonly uint[] required_styles = { };
+
+        // official event - no skills free
+        public static readonly uint[] free_skills = { };
+
+        // official event - no required skills
+        public static readonly uint[] required_skills = { };
+
+        // Style names
+        public static readonly string[] style_names =
+        {
+            "Trickster",        // 0
+            "Mazing Run",       // 1
+            "Speeding Bullet",  // 2
+            "Incisive Run",     // 3
+            "Long Ball Expert", // 4
+            "Early Cross",      // 5
+            "Long Ranger"       // 6
+        };
+        // Skill names
+        public static readonly string[] skill_names =
+        {
+            "Scissors Feint",             //  0
+            "Flip Flap",                  //  1
+            "Marseille Turn",             //  2
+            "Sombrero",                   //  3
+            "Cut Behind Turn",            //  4
+            "Scotch Move",                //  5
+            "Heading",                    //  6
+            "Long Range Drive",           //  7
+            "Knuckle Shot",               //  8
+            "Acrobatic Finishing",        //  9
+            "Heel Trick",                 // 10
+            "First Time Shot",            // 11
+            "One Touch Pass",             // 12
+            "Weighted Pass",              // 13
+            "Pinpoint Crossing",          // 14
+            "Outside Curler",             // 15
+            "Rabona",                     // 16
+            "Low Lofted Pass",            // 17
+            "Low Punt Trajectory",        // 18
+            "Long Throw",                 // 19
+            "GK Long Throw",              // 20
+            "Malicia",                    // 21
+            "Man Marking",                // 22
+            "Track Back",                 // 23
+            "Acrobatic Clear",            // 24
+            "Captaincy",                  // 25
+            "Super Sub",                  // 26
+            "Fighting Spirit"             // 27
+        };
     }
 
     public class team
@@ -217,7 +271,6 @@ namespace AATF
                     switch (type)
                     {
                         case 0: // Save/Save
-
                             // This is the only type that can loop infinitely, as you can check a different team every time
                             while (true)
                             {
@@ -250,9 +303,7 @@ namespace AATF
                                 Console.WriteLine();
                             }
                             break;
-
                         case 1: // Save/Export
-
                             team t1_squad_save = new team();
                             team t1_squad_export = new team();
 

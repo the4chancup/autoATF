@@ -9,35 +9,58 @@ namespace AATF
     {
         public static void check_cards(player line, team squad)
         {
-            int total_cards = 0;
+            uint total_cards = 0;
             bool captaincy = false;
 
-            // Count how many Style Cards the player has
-            foreach(int i in line.Cards_Style)
+            // Count how many (non-free) Style Cards the player has
+            uint freeIndex = 0;
+            for (uint i = 0; i < line.Cards_Style.Length; ++i)
             {
-                if(i == 1)
-                {
-                    total_cards++;
-                }
+                if (freeIndex < constants.free_styles.Length && i == constants.free_styles[freeIndex]) { freeIndex++; }
+                else if (line.Cards_Style[i] == 1) { total_cards++; }
             }
 
             // Count how many Skill Cards the player has
-            foreach (int i in line.Cards_Skills)
+            freeIndex = 0;
+            uint trickIndex = 0; uint trickCount = 0;
+            for (uint i = 0; i < line.Cards_Skills.Length; ++i)
             {
-                if (i == 1)
+                // check if card is free
+                if (freeIndex < constants.free_skills.Length && i == constants.free_skills[freeIndex]) { freeIndex++; }
+                // check if card is a trick
+                else if (trickIndex < constants.trick_cards.Length && i == constants.trick_cards[trickIndex])
                 {
-                    total_cards++;
+                    trickCount += (uint)line.Cards_Skills[i];
+                    trickIndex++;
                 }
+                // otherwise add card to total
+                else { total_cards += (uint)line.Cards_Skills[i]; }
             }
-
-            // Count trick cards
-            uint trickCount = 0;
-            for (uint i = 0; i < constants.trick_cards.Length; ++i) { trickCount += (uint)line.Cards_Skills[constants.trick_cards[i]]; }
-
+            
             // Captaincy Cards are excluded from the limit
             if(line.Cards_Skills[25] == 1)
             {
                 captaincy = true;
+            }
+
+            // check required cards
+            for (uint i = 0; i < constants.required_styles.Length; ++i)
+            {
+                uint card = constants.required_styles[i];
+                if (line.Cards_Style[card] == 0)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " missing required style card " + card + " [" + constants.style_names[card] + "]");
+                    variables.errors++;
+                }
+            }
+            for (uint i = 0; i < constants.required_skills.Length; ++i)
+            {
+                uint card = constants.required_skills[i];
+                if (line.Cards_Skills[card] == 0)
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " missing required skill card " + card + " [" + constants.skill_names[card] + "]");
+                    variables.errors++;
+                }
             }
 
             // Check the card counts
