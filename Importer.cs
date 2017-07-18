@@ -18,6 +18,7 @@ namespace AATF
         // Team
         public int Team_id;
         public string Team_name;
+        public int Index_id;
 
         // Position Info
         // 0 = GK
@@ -142,6 +143,27 @@ namespace AATF
         public int ani_arms_running;
         public int ani_hunch_dribbling;
         public int ani_hunch_running;
+
+        // Team Assignments
+        public bool is_captain;
+    }
+
+    public class teamplayer
+    {
+        public int teamplayer_table_team;
+
+        public int teamplayer_table_player;
+
+        public int teamplayer_table_index;
+    }
+
+    public class teamplan
+    {
+        public int team_id;
+
+        public int captain_index;
+
+        // This can be expanded to include the whole teamplan table
     }
 
     public class Importer
@@ -236,14 +258,14 @@ namespace AATF
 
             by20 = (chunk[0x20] & 0xC0) >> 6;
             by21 = (chunk[0x21] & 0x03) << 2;
-            
+
             return by20 | by21;
         }
 
         static int[] readPositionRatings(byte[] chunk)
         {
             int[] rat = new int[13];
-            
+
             // CF - byte 0x26, bits 7-8
             rat[12] = (chunk[0x26] & 0xC0) >> 6;
 
@@ -296,9 +318,20 @@ namespace AATF
             return BitConverter.ToInt16(chunk, 0x0A);
         }
 
-        static int readTeamID(int player_id, Hashtable team_table)
+        static int readTeamID(int player_id, Hashtable teamplayer_table)
         {
-            return (int)team_table[player_id];
+            teamplayer teamplayer_entry = new teamplayer();
+            teamplayer_entry = (teamplayer)teamplayer_table[player_id];
+
+            return teamplayer_entry.teamplayer_table_team;
+        }
+
+        static int readIndexID(int player_id, Hashtable teamplayer_table)
+        {
+            teamplayer teamplayer_entry = new teamplayer();
+            teamplayer_entry = (teamplayer)teamplayer_table[player_id];
+
+            return teamplayer_entry.teamplayer_table_index;
         }
 
         static string readTeamName(int team_id, Hashtable teams_4cc)
@@ -791,6 +824,21 @@ namespace AATF
             return (((chunk[0x2A] & 0x0C) >> 2) + 1);
         }
 
+        static bool is_Captain(int indexID, int teamID, Hashtable teamplan_table)
+        {
+            bool is_captain = false;
+
+            teamplan teamplan_entry = new teamplan();
+            teamplan_entry = (teamplan)teamplan_table[teamID];
+
+            if (teamplan_entry.captain_index == indexID)
+            {
+                is_captain = true;
+            }
+
+            return is_captain;
+        }
+
         public static team export_importer(string input_file)
         {
             // Create a new team
@@ -817,9 +865,13 @@ namespace AATF
             Hashtable teams_4cc = new Hashtable();
             teams_4cc = Lookup.setup_teams_4cc();
 
-            // Since we don't have access to the team table, we have it hardcoded
-            Hashtable team_table = new Hashtable();
-            team_table = Lookup.setup_team_table();
+            // Since we don't have access to the team-player table, we have it hardcoded
+            Hashtable teamplayer_table = new Hashtable();
+            teamplayer_table = Lookup.setup_team_table();
+
+            // Get the gameplan table
+            Hashtable teamplan_table = new Hashtable();
+            teamplan_table = import_teamplan_table(texport, teams_4cc, teamplan_table, false);
 
             squad.team_name = team_name_str.TrimEnd(chars_to_trim);
 
@@ -836,7 +888,7 @@ namespace AATF
 
             // Set the pointer
             pointer = player1_offset;
-            
+
             // Loop through all the players
             while (true)
             {
@@ -858,8 +910,9 @@ namespace AATF
                 line.name = texPlayerName(chunk);
                 line.shirt_name = texShirtName(chunk);
 
-                line.Team_id = readTeamID(line.id, team_table);
+                line.Team_id = readTeamID(line.id, teamplayer_table);
                 line.Team_name = readTeamName(line.Team_id, teams_4cc);
+                line.Index_id = readIndexID(line.id, teamplayer_table);
 
                 line.position = readMainPosition(chunk);
                 line.PosRats = readPositionRatings(chunk);
@@ -915,6 +968,9 @@ namespace AATF
                 line.ani_hunch_dribbling = readAniHunchDribbling(chunk);
                 line.ani_hunch_running = readAniHunchRunning(chunk);
 
+                // Are they the team captain?
+                line.is_captain = is_Captain(line.Index_id, line.Team_id, teamplan_table);
+
                 // Add to the global table
                 squad.team_players.Add(line);
 
@@ -960,12 +1016,14 @@ namespace AATF
             ebin = pesXDecrypter.decryptFile(raw_ebin);
 
             List<player> player_table = new List<player>();
-            Hashtable team_table = new Hashtable();
+            Hashtable teamplayer_table = new Hashtable();
+            Hashtable teamplan_table = new Hashtable();
             Hashtable teams_4cc = new Hashtable();
 
             // Setup teams
             teams_4cc = Lookup.setup_teams_4cc();
-            team_table = import_team_table(ebin, teams_4cc);
+            teamplayer_table = import_teamplayer_table(ebin, teams_4cc);
+            teamplan_table = import_teamplan_table(ebin, teams_4cc, teamplan_table, true);
 
             // Jump to 120 bytes in
             pointer = 120;
@@ -1000,15 +1058,16 @@ namespace AATF
                 }
 
                 // Check if the player is a valid 4cc player
-                if (team_table.Contains(line.id))
+                if (teamplayer_table.Contains(line.id))
                 {
                     // Read Values
                     line.position = readMainPosition(chunk);
                     line.PosRats = readPositionRatings(chunk);
                     line.nationality = readCountry(chunk);
 
-                    line.Team_id = readTeamID(line.id, team_table);
+                    line.Team_id = readTeamID(line.id, teamplayer_table);
                     line.Team_name = readTeamName(line.Team_id, teams_4cc);
+                    line.Index_id = readIndexID(line.id, teamplayer_table);
 
                     line.height = readHeight(chunk);
                     line.weight = readWeight(chunk);
@@ -1059,6 +1118,9 @@ namespace AATF
                     line.ani_hunch_dribbling = readAniHunchDribbling(chunk);
                     line.ani_hunch_running = readAniHunchRunning(chunk);
 
+                    // Are they the team captain?
+                    line.is_captain = is_Captain(line.Index_id, line.Team_id, teamplan_table);
+
                     // Add to the global table
                     player_table.Add(line);
                 }
@@ -1084,9 +1146,9 @@ namespace AATF
             }
         }
 
-        public static Hashtable import_team_table(byte[] ebin, Hashtable teams_4cc)
+        public static Hashtable import_teamplayer_table(byte[] ebin, Hashtable teams_4cc)
         {
-            Hashtable team_table = new Hashtable();
+            Hashtable teamplayer_table = new Hashtable();
 
             // Jump to the start of the team table
             int offset_team1 = 0x475A90;
@@ -1097,10 +1159,10 @@ namespace AATF
             {
                 // Now we have a pointer to the start of the team
                 // Grab the next 164 bytes
-                int size_of_team = 164;
+                int size_of_chunk = 164;
 
-                byte[] chunk = new byte[size_of_team];
-                Array.Copy(ebin, pointer, chunk, 0, size_of_team);
+                byte[] chunk = new byte[size_of_chunk];
+                Array.Copy(ebin, pointer, chunk, 0, size_of_chunk);
 
                 // TeamID is the first 4 bytes
                 int teamID = BitConverter.ToInt32(chunk, 0);
@@ -1116,6 +1178,7 @@ namespace AATF
                     // Valid 4cc team
                     int playerID;
                     int pos = 4;
+                    int indexID = 1;
 
                     while (true)
                     {
@@ -1128,17 +1191,83 @@ namespace AATF
                         }
 
                         // Add the player to the table
-                        team_table.Add(playerID, teamID);
+                        teamplayer teamplayer_entry = new teamplayer();
+                        teamplayer_entry.teamplayer_table_team = teamID;
+                        teamplayer_entry.teamplayer_table_player = playerID;
+                        teamplayer_entry.teamplayer_table_index = indexID;
+
+                        teamplayer_table.Add(playerID, teamplayer_entry);
+
+                        // Increment the indexID for the next player
+                        indexID++;
 
                         // Iterate to the next player in the team
                         pos += 4;
                     }
                 }
 
-                pointer += size_of_team;
+                pointer += size_of_chunk;
             }
 
-            return team_table;
+            return teamplayer_table;
+        }
+
+        public static Hashtable import_teamplan_table(byte[] ebin, Hashtable teams_4cc, Hashtable teamplayer_table, bool is_ebin)
+        {
+            Hashtable teamplan_table = new Hashtable();
+            int offset_team1 = 0;
+
+            // Jump to the start of the teamplan table
+            // Location depends on if this is an EDIT or TEXPORT
+            if(is_ebin)
+            {
+                // EDIT.bin
+                offset_team1 = 0x490640;
+            }
+            else
+            {
+                // TEXPORT
+                offset_team1 = 0x10330;
+            }
+
+            pointer = offset_team1;
+
+            while (true)
+            {
+                // Now we have a pointer to the start of the team
+                // Grab the next 628 bytes
+                int size_of_chunk = 628;
+
+                byte[] chunk = new byte[size_of_chunk];
+                Array.Copy(ebin, pointer, chunk, 0, size_of_chunk);
+
+                // TeamID is the first 4 bytes
+                int teamID = BitConverter.ToInt32(chunk, 0);
+
+                if ((teamID == 0) || (teamID >= 1010))
+                {
+                    // Reached end of the team table
+                    break;
+                }
+
+                if (teams_4cc.ContainsKey(teamID))
+                {
+                    // Valid 4cc team
+
+                    // For now we're only interested in who the captain is, can expand later
+                    int pos = 0x20D;
+
+                    teamplan teamplan_entry = new teamplan();
+                    teamplan_entry.team_id = teamID;
+                    teamplan_entry.captain_index = BitConverter.ToInt32(chunk, pos) + 1;
+
+                    teamplan_table.Add(teamID, teamplan_entry);
+                }
+
+                pointer += size_of_chunk;
+            }
+
+            return teamplan_table;
         }
     }
 }

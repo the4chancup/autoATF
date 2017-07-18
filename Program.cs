@@ -44,12 +44,12 @@ namespace AATF
             // minimum bracket where two A positions are allowed
             this.min_double_a_bracket = min_double_a;
         }
-       
-        public uint id { get; }
-        public uint[] limits { get; }
-        public uint total_limit { get; }
-        public uint min_double_a_bracket { get; }
-        public string desc { get; }
+
+        public uint id { get; set; }
+        public uint[] limits { get; set; }
+        public uint total_limit { get; set; }
+        public uint min_double_a_bracket { get; set; }
+        public string desc { get; set; }
     }
 
     public static class constants
@@ -196,7 +196,7 @@ namespace AATF
 
             bool ini_setup = false;
 
-            Console.Title = "autoATF - PES 2017 - Winter 2017 Edition - v1.1";
+            Console.Title = "autoATF - PES 2017 - Summer 2017 Edition - v1.3";
 
             // INI setup
             ini_setup = Parser.setup_switches();
