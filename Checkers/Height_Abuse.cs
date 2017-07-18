@@ -158,6 +158,13 @@ namespace AATF
             }
 
             // check system limits
+            // check total height
+            if (height_total > system.total_limit)
+            {
+                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " (System " + system.id + ") has total height " + height_total + " but maximum permitted is " + system.total_limit);
+                variables.errors++;
+            }
+            // check players in bracket
             uint prevBracket = constants.height_maximum_4cc;
             for (uint i = 0; i < system.limits.Length; ++i )
             {
