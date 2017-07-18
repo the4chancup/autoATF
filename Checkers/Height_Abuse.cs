@@ -121,16 +121,6 @@ namespace AATF
             {
                 system = constants.system2;
                 Console.WriteLine("Assuming Height Abuse System " + system.id + " (" + system.desc + ")\n");
-                
-                // Check multi-position players to see if they fall in the right height brackets
-                foreach (player line in multipos)
-                {
-                    if (line.height_bracket < system.min_double_a_bracket)
-                    {
-                        Console.WriteLine("HEIGHT ABUSE:\n" + line.id + "\t" + line.name + " has two positions but height above maximum of " + (constants.height_brackets[system.min_double_a_bracket]+4));
-                        variables.errors++;
-                    }
-                }
             }
 
             // If no players have the System1 Stats or System2 positions, it could still be System1 but the manager hasn't applied the stats nerf
@@ -184,6 +174,19 @@ namespace AATF
                     variables.errors++;
                 }
                 prevBracket = constants.height_brackets[i];
+            }
+            // Check multi-position players to see if they fall in the right height brackets
+            foreach (player line in multipos)
+            {
+                if (line.height_bracket < system.min_double_a_bracket)
+                {
+                    string msg = "";
+                    if (system.min_double_a_bracket == 999) { msg = "system does not permit multiple positions."; }
+                    else { msg = "height above maximum of " + (constants.height_brackets[system.min_double_a_bracket] + 4); }
+
+                    Console.WriteLine("HEIGHT ABUSE:\n" + line.id + "\t" + line.name + " has two positions but "+msg);
+                    variables.errors++;
+                }
             }
         }
     }
