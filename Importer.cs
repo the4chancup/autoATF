@@ -1259,7 +1259,7 @@ namespace AATF
 
                     teamplan teamplan_entry = new teamplan();
                     teamplan_entry.team_id = teamID;
-                    teamplan_entry.captain_index = BitConverter.ToInt32(chunk, pos) + 1;
+                    teamplan_entry.captain_index = BitConverter.ToChar(chunk, pos) + 1;
 
                     teamplan_table.Add(teamID, teamplan_entry);
                 }
