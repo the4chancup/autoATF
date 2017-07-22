@@ -9,17 +9,17 @@ namespace AATF
     {
         public static void check_cards(player line, team squad)
         {
-            uint total_cards = 0;
-            bool captaincy = false;
+            uint standard_cards = 0;
             
             // Count how many (non-free) Style Cards the player has
             uint freeIndex = 0;
             for (uint i = 0; i < line.Cards_Style.Length; ++i)
             {
+                if (line.Cards_Style[i] != 0) { Console.WriteLine(constants.skill_names[i]); }
                 // if the skill is marked as free, skip it and advance to the next free skill
                 if (freeIndex < constants.free_styles.Length && i == constants.free_styles[freeIndex]) { freeIndex++; }
                 // otherwise check and increment it
-                else if (line.Cards_Style[i] == 1) { total_cards++; }
+                else if (line.Cards_Style[i] == 1) { standard_cards++; }
             }
 
             // Count how many (non-free) Skill Cards the player has
@@ -28,6 +28,7 @@ namespace AATF
             uint trickIndex = 0; uint trickCount = 0;
             for (uint i = 0; i < line.Cards_Skills.Length; ++i)
             {
+                if (line.Cards_Skills[i] != 0) { Console.WriteLine(constants.skill_names[i]); }
                 // check if card is free
                 if (freeIndex < constants.free_skills.Length && i == constants.free_skills[freeIndex]) { freeIndex++; }
                 // check if card is a trick
@@ -37,7 +38,7 @@ namespace AATF
                     trickIndex++;
                 }
                 // otherwise add card to total
-                else { total_cards += (uint)line.Cards_Skills[i]; }
+                else { standard_cards += (uint)line.Cards_Skills[i]; }
             }
 
 
@@ -48,7 +49,7 @@ namespace AATF
 
                 if (line.Cards_Skills[25] == 1)
                 {
-                    total_cards--;
+                    standard_cards--;
 
                     Console.WriteLine(line.id + "\t" + line.name + " is Captain (Has free CAPTAINCY card)");
                 }
@@ -81,43 +82,41 @@ namespace AATF
             // Check the card counts
             if ((line.is_regular) || (line.is_regular_system1))
             {
-                if (total_cards > constants.cards_limit_regular)
+                if (standard_cards > constants.cards_limit_regular)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + total_cards + ", can only have " + constants.cards_limit_regular + " max)");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + standard_cards + ", can only have " + constants.cards_limit_regular + " max)");
                     variables.errors++;
                 }
             }
             else if ((line.is_silver) || (line.is_silver_system1))
             {
-                trickCount = Math.Min(trickCount, constants.trick_cards_silver);
-                if (trickCount > 0)
+                if ( trickCount > constants.trick_cards_silver )
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has " + trickCount + " free trick card(s)");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many trick Cards (Has " + trickCount + ", can only have " + constants.trick_cards_silver + " max)");
                 }
-                if (total_cards-trickCount > constants.cards_limit_silver)
+                if (standard_cards > constants.cards_limit_silver)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + (total_cards - trickCount) + ", can only have " + constants.cards_limit_silver + " max and " + constants.trick_cards_silver + " free trick(s))");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + standard_cards + ", can only have " + constants.cards_limit_silver+" max)");
                     variables.errors++;
                 }
             }
             else if ((line.is_gold) || (line.is_gold_system1))
             {
-                trickCount = Math.Min(trickCount, constants.trick_cards_gold);
-                if (trickCount > 0)
+                if (trickCount > constants.trick_cards_gold)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has " + trickCount + " free trick card(s)");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many trick Cards (Has " + trickCount + ", can only have " + constants.trick_cards_gold + " max)");
                 }
-                if (total_cards - trickCount > constants.cards_limit_gold)
+                if (standard_cards > constants.cards_limit_gold)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + total_cards + ", can only have " + constants.cards_limit_gold + " max and " + constants.trick_cards_gold + " free trick(s))");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many regular Cards (Has " + standard_cards + ", can only have " + constants.cards_limit_gold + " max)");
                     variables.errors++;
                 }
             }
             else if ((line.is_goalkeeper) || (line.is_goalkeeper_system1))
             {
-                if (total_cards > constants.cards_limit_goalkeeper)
+                if (standard_cards > constants.cards_limit_goalkeeper)
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + total_cards + ", can only have " + constants.cards_limit_goalkeeper + " max)");
+                    Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + standard_cards + ", can only have " + constants.cards_limit_goalkeeper + " max)");
                     variables.errors++;
                 }
             }
