@@ -15,7 +15,6 @@ namespace AATF
             uint freeIndex = 0;
             for (uint i = 0; i < line.Cards_Style.Length; ++i)
             {
-                if (line.Cards_Style[i] != 0) { Console.WriteLine(constants.skill_names[i]); }
                 // if the skill is marked as free, skip it and advance to the next free skill
                 if (freeIndex < constants.free_styles.Length && i == constants.free_styles[freeIndex]) { freeIndex++; }
                 // otherwise check and increment it
@@ -28,7 +27,6 @@ namespace AATF
             uint trickIndex = 0; uint trickCount = 0;
             for (uint i = 0; i < line.Cards_Skills.Length; ++i)
             {
-                if (line.Cards_Skills[i] != 0) { Console.WriteLine(constants.skill_names[i]); }
                 // check if card is free
                 if (freeIndex < constants.free_skills.Length && i == constants.free_skills[freeIndex]) { freeIndex++; }
                 // check if card is a trick
@@ -50,7 +48,6 @@ namespace AATF
                 if (line.Cards_Skills[25] == 1)
                 {
                     standard_cards--;
-
                     Console.WriteLine(line.id + "\t" + line.name + " is Captain (Has free CAPTAINCY card)");
                 }
                 else
