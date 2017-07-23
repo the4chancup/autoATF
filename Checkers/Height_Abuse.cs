@@ -31,7 +31,7 @@ namespace AATF
                 }
 
                 // Check for any System1 Stats Players
-                if (line.is_gold_system1 == true || line.is_silver_system1 == true || line.is_regular_system1 == true || line.is_goalkeeper_system1 == true)
+                if (line.statType == 1)
                 {
                     system1_stats++;
                 }

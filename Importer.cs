@@ -99,15 +99,12 @@ namespace AATF
         public int[] Cards_Skills = new int[28];
 
         // Player Definitions
+        public uint ptype; // 0 for gk, 1 for regular, 2 for silver, 3 for gold
+        public uint statType; // 0 for error, 1 for system1, 2 for system2
         public bool is_gold;
         public bool is_silver;
         public bool is_regular;
         public bool is_goalkeeper;
-
-        public bool is_gold_system1;
-        public bool is_silver_system1;
-        public bool is_regular_system1;
-        public bool is_goalkeeper_system1;
 
         public bool is_multipos_system2;
 

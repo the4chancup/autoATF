@@ -9,238 +9,66 @@ namespace AATF
     {
         public static void check_stats(player line)
         {
-            // GOLD
-            if (line.Goalkeeping == constants.stats_gold &&
-               line.Dribbling == constants.stats_gold &&
-               line.Finishing == constants.stats_gold &&
-               line.Low_Pass == constants.stats_gold &&
-               line.Lofted_Pass == constants.stats_gold &&
-               line.Header == constants.stats_gold &&
-               line.Controlled_Spin == constants.stats_gold &&
-               line.Saving == constants.stats_gold &&
-               line.Clearing == constants.stats_gold &&
-               line.Reflexes == constants.stats_gold &&
-               line.Body_Balance == constants.stats_gold &&
-               line.Physical_Contact == constants.stats_gold &&
-               line.Kicking_Power == constants.stats_gold &&
-               line.Explosive_Power == constants.stats_gold &&
-               line.Jump == constants.stats_gold &&
-               line.Ball_Control == constants.stats_gold &&
-               line.Ball_Winning == constants.stats_gold &&
-               line.Coverage == constants.stats_gold &&
-               line.Place_Kicking == constants.stats_gold &&
-               line.Speed == constants.stats_gold &&
-               line.Stamina == constants.stats_gold &&
-               line.position != 0) // Can't have medal goalkeepers
+            // default to "there is an error in your stats"
+            line.statType = 0;
+            for (uint i = 0; i < constants.stats.Length; ++i)
             {
-                line.is_gold = true;
-            }
-
-            // GOLD SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
-            else if (line.Goalkeeping == constants.stats_gold_system1 &&
-               line.Dribbling == constants.stats_gold_system1 &&
-               line.Finishing == constants.stats_gold_system1 &&
-               line.Low_Pass == constants.stats_gold_system1 &&
-               line.Lofted_Pass == constants.stats_gold_system1 &&
-               line.Header == constants.stats_gold_system1 &&
-               line.Controlled_Spin == constants.stats_gold_system1 &&
-               line.Saving == constants.stats_gold_system1 &&
-               line.Clearing == constants.stats_gold_system1 &&
-               line.Reflexes == constants.stats_gold_system1 &&
-               line.Body_Balance == constants.stats_gold_system1 &&
-               line.Physical_Contact == constants.stats_gold_system1 &&
-               line.Kicking_Power == constants.stats_gold_system1 &&
-               line.Explosive_Power == constants.stats_gold_system1 &&
-               line.Jump == constants.stats_gold_system1 &&
-               line.Ball_Control == constants.stats_gold_system1 &&
-               line.Ball_Winning == constants.stats_gold_system1 &&
-               line.Coverage == constants.stats_gold_system1 &&
-               line.Place_Kicking == constants.stats_gold_system1 &&
-               line.Speed == constants.stats_gold_system1 &&
-               line.Stamina == constants.stats_gold_system1 &&
-               line.position != 0) // Can't have medal goalkeepers
-            {
-                line.is_gold = true;
-                line.is_gold_system1 = true;
-            }
-
-           // SILVER
-            else if (line.Goalkeeping == constants.stats_silver &&
-               line.Dribbling == constants.stats_silver &&
-               line.Finishing == constants.stats_silver &&
-               line.Low_Pass == constants.stats_silver &&
-               line.Lofted_Pass == constants.stats_silver &&
-               line.Header == constants.stats_silver &&
-               line.Controlled_Spin == constants.stats_silver &&
-               line.Saving == constants.stats_silver &&
-               line.Clearing == constants.stats_silver &&
-               line.Reflexes == constants.stats_silver &&
-               line.Body_Balance == constants.stats_silver &&
-               line.Physical_Contact == constants.stats_silver &&
-               line.Kicking_Power == constants.stats_silver &&
-               line.Explosive_Power == constants.stats_silver &&
-               line.Jump == constants.stats_silver &&
-               line.Ball_Control == constants.stats_silver &&
-               line.Ball_Winning == constants.stats_silver &&
-               line.Coverage == constants.stats_silver &&
-               line.Place_Kicking == constants.stats_silver &&
-               line.Speed == constants.stats_silver &&
-               line.Stamina == constants.stats_silver &&
-               line.position != 0) // Can't have medal goalkeepers
-            {
-                line.is_silver = true;
-            }
-
-            // SILVER SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
-            else if (line.Goalkeeping == constants.stats_silver_system1 &&
-               line.Dribbling == constants.stats_silver_system1 &&
-               line.Finishing == constants.stats_silver_system1 &&
-               line.Low_Pass == constants.stats_silver_system1 &&
-               line.Lofted_Pass == constants.stats_silver_system1 &&
-               line.Header == constants.stats_silver_system1 &&
-               line.Controlled_Spin == constants.stats_silver_system1 &&
-               line.Saving == constants.stats_silver_system1 &&
-               line.Clearing == constants.stats_silver_system1 &&
-               line.Reflexes == constants.stats_silver_system1 &&
-               line.Body_Balance == constants.stats_silver_system1 &&
-               line.Physical_Contact == constants.stats_silver_system1 &&
-               line.Kicking_Power == constants.stats_silver_system1 &&
-               line.Explosive_Power == constants.stats_silver_system1 &&
-               line.Jump == constants.stats_silver_system1 &&
-               line.Ball_Control == constants.stats_silver_system1 &&
-               line.Ball_Winning == constants.stats_silver_system1 &&
-               line.Coverage == constants.stats_silver_system1 &&
-               line.Place_Kicking == constants.stats_silver_system1 &&
-               line.Speed == constants.stats_silver_system1 &&
-               line.Stamina == constants.stats_silver_system1 &&
-               line.position != 0) // Can't have medal goalkeepers
-            {
-                line.is_silver = true;
-                line.is_silver_system1 = true;
-            }
-
-            // REGULAR
-            else if (line.Goalkeeping == constants.stats_regular &&
-               line.Dribbling == constants.stats_regular &&
-               line.Finishing == constants.stats_regular &&
-               line.Low_Pass == constants.stats_regular &&
-               line.Lofted_Pass == constants.stats_regular &&
-               line.Header == constants.stats_regular &&
-               line.Controlled_Spin == constants.stats_regular &&
-               line.Saving == constants.stats_regular &&
-               line.Clearing == constants.stats_regular &&
-               line.Reflexes == constants.stats_regular &&
-               line.Body_Balance == constants.stats_regular &&
-               line.Physical_Contact == constants.stats_regular &&
-               line.Kicking_Power == constants.stats_regular &&
-               line.Explosive_Power == constants.stats_regular &&
-               line.Jump == constants.stats_regular &&
-               line.Ball_Control == constants.stats_regular &&
-               line.Ball_Winning == constants.stats_regular &&
-               line.Coverage == constants.stats_regular &&
-               line.Place_Kicking == constants.stats_regular &&
-               line.Speed == constants.stats_regular &&
-               line.Stamina == constants.stats_regular &&
-               line.position != 0) // GKs have different stats to regulars
-            {
-                line.is_regular = true;
-            }
-
-            // REGULAR SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
-            else if (line.Goalkeeping == constants.stats_regular_system1 &&
-               line.Dribbling == constants.stats_regular_system1 &&
-               line.Finishing == constants.stats_regular_system1 &&
-               line.Low_Pass == constants.stats_regular_system1 &&
-               line.Lofted_Pass == constants.stats_regular_system1 &&
-               line.Header == constants.stats_regular_system1 &&
-               line.Controlled_Spin == constants.stats_regular_system1 &&
-               line.Saving == constants.stats_regular_system1 &&
-               line.Clearing == constants.stats_regular_system1 &&
-               line.Reflexes == constants.stats_regular_system1 &&
-               line.Body_Balance == constants.stats_regular_system1 &&
-               line.Physical_Contact == constants.stats_regular_system1 &&
-               line.Kicking_Power == constants.stats_regular_system1 &&
-               line.Explosive_Power == constants.stats_regular_system1 &&
-               line.Jump == constants.stats_regular_system1 &&
-               line.Ball_Control == constants.stats_regular_system1 &&
-               line.Ball_Winning == constants.stats_regular_system1 &&
-               line.Coverage == constants.stats_regular_system1 &&
-               line.Place_Kicking == constants.stats_regular_system1 &&
-               line.Speed == constants.stats_regular_system1 &&
-               line.Stamina == constants.stats_regular_system1 &&
-               line.position != 0) // GKs have different stats to regulars
-            {
-                line.is_regular = true;
-                line.is_regular_system1 = true;
-            }
-
-            // GK
-            else if (line.Goalkeeping == constants.stats_goalkeeper &&
-               line.Dribbling == constants.stats_goalkeeper &&
-               line.Finishing == constants.stats_goalkeeper &&
-               line.Low_Pass == constants.stats_goalkeeper &&
-               line.Lofted_Pass == constants.stats_goalkeeper &&
-               line.Header == constants.stats_goalkeeper &&
-               line.Controlled_Spin == constants.stats_goalkeeper &&
-               line.Saving == constants.stats_goalkeeper &&
-               line.Clearing == constants.stats_goalkeeper &&
-               line.Reflexes == constants.stats_goalkeeper &&
-               line.Body_Balance == constants.stats_goalkeeper &&
-               line.Physical_Contact == constants.stats_goalkeeper &&
-               line.Kicking_Power == constants.stats_goalkeeper &&
-               line.Explosive_Power == constants.stats_goalkeeper &&
-               line.Jump == constants.stats_goalkeeper &&
-               line.Ball_Control == constants.stats_goalkeeper &&
-               line.Ball_Winning == constants.stats_goalkeeper &&
-               line.Coverage == constants.stats_goalkeeper &&
-               line.Place_Kicking == constants.stats_goalkeeper &&
-               line.Speed == constants.stats_goalkeeper &&
-               line.Stamina == constants.stats_goalkeeper &&
-               line.position == 0) // Make sure only GKs fall into here
-            {
-                line.is_goalkeeper = true;
-            }
-
-            // GOALKEEPER SYSTEM 1 --- SUMMER 2015 HEIGHT ABUSE EDITION
-            else if (line.Goalkeeping == constants.stats_goalkeeper_system1 &&
-               line.Dribbling == constants.stats_goalkeeper_system1 &&
-               line.Finishing == constants.stats_goalkeeper_system1 &&
-               line.Low_Pass == constants.stats_goalkeeper_system1 &&
-               line.Lofted_Pass == constants.stats_goalkeeper_system1 &&
-               line.Header == constants.stats_goalkeeper_system1 &&
-               line.Controlled_Spin == constants.stats_goalkeeper_system1 &&
-               line.Saving == constants.stats_goalkeeper_system1 &&
-               line.Clearing == constants.stats_goalkeeper_system1 &&
-               line.Reflexes == constants.stats_goalkeeper_system1 &&
-               line.Body_Balance == constants.stats_goalkeeper_system1 &&
-               line.Physical_Contact == constants.stats_goalkeeper_system1 &&
-               line.Kicking_Power == constants.stats_goalkeeper_system1 &&
-               line.Explosive_Power == constants.stats_goalkeeper_system1 &&
-               line.Jump == constants.stats_goalkeeper_system1 &&
-               line.Ball_Control == constants.stats_goalkeeper_system1 &&
-               line.Ball_Winning == constants.stats_goalkeeper_system1 &&
-               line.Coverage == constants.stats_goalkeeper_system1 &&
-               line.Place_Kicking == constants.stats_goalkeeper_system1 &&
-               line.Speed == constants.stats_goalkeeper_system1 &&
-               line.Stamina == constants.stats_goalkeeper_system1 &&
-               line.position == 0) // Make sure only GKs fall into here
-            {
-                // SEC16 - Due to the increased keeper stats, there's an interesting quirk whereby if a manager forgets to buff their keepers up to 80, they might be incorrectly marked as using Height System 1
-                // Will put in a special case error here to highlight this
-                if (line.height < constants.height_brackets[2])
+                if (line.Goalkeeping == constants.stats[i] &&
+                   line.Dribbling == constants.stats[i] &&
+                   line.Finishing == constants.stats[i] &&
+                   line.Low_Pass == constants.stats[i] &&
+                   line.Lofted_Pass == constants.stats[i] &&
+                   line.Header == constants.stats[i] &&
+                   line.Controlled_Spin == constants.stats[i] &&
+                   line.Saving == constants.stats[i] &&
+                   line.Clearing == constants.stats[i] &&
+                   line.Reflexes == constants.stats[i] &&
+                   line.Body_Balance == constants.stats[i] &&
+                   line.Physical_Contact == constants.stats[i] &&
+                   line.Kicking_Power == constants.stats[i] &&
+                   line.Explosive_Power == constants.stats[i] &&
+                   line.Jump == constants.stats[i] &&
+                   line.Ball_Control == constants.stats[i] &&
+                   line.Ball_Winning == constants.stats[i] &&
+                   line.Coverage == constants.stats[i] &&
+                   line.Place_Kicking == constants.stats[i] &&
+                   line.Speed == constants.stats[i] &&
+                   line.Stamina == constants.stats[i] &&
+                   (i == 0 || line.position != 0)) // ensure goalkeepers are on i=0 only
                 {
-                    Console.WriteLine(line.id + "\t" + line.name + " is a GK but has not been buffed to flat 80 stats");
-                    variables.errors++;
+                    line.ptype = i;
+                    line.statType = 2;
                 }
-                else
+                else if (line.Goalkeeping == constants.stats[i] &&
+                   line.Dribbling == constants.stats[i] &&
+                   line.Finishing == constants.stats[i] &&
+                   line.Low_Pass == constants.stats[i] &&
+                   line.Lofted_Pass == constants.stats[i] &&
+                   line.Header == constants.stats[i] &&
+                   line.Controlled_Spin == constants.stats[i] &&
+                   line.Saving == constants.stats[i] &&
+                   line.Clearing == constants.stats[i] &&
+                   line.Reflexes == constants.stats[i] &&
+                   line.Body_Balance == constants.stats[i] &&
+                   line.Physical_Contact == constants.stats[i] &&
+                   line.Kicking_Power == constants.stats[i] &&
+                   line.Explosive_Power == constants.stats[i] &&
+                   line.Jump == constants.stats[i] &&
+                   line.Ball_Control == constants.stats[i] &&
+                   line.Ball_Winning == constants.stats[i] &&
+                   line.Coverage == constants.stats[i] &&
+                   line.Place_Kicking == constants.stats[i] &&
+                   line.Speed == constants.stats[i] &&
+                   line.Stamina == constants.stats[i] &&
+                   (i == 0 || line.position != 0)) // goalkeepers must be checked on i=0
                 {
-                    line.is_goalkeeper = true;
-                    line.is_goalkeeper_system1 = true;
+                    line.ptype = i;
+                    line.statType = 1;
                 }
             }
 
-            // If it doesn't match anything
-            else
+            // If it doesn't match anything after checking all options
+            if (line.statType == 0)
             {
                 Console.WriteLine(line.id + "\t" + line.name + " has invalid stats");
                 variables.errors++;
@@ -253,38 +81,8 @@ namespace AATF
 
             // Prowess can be set to any value, but cannot exceed the medal stat for that player
             // Lets get the medal stat for that player, then compare it to their Att/Def Prowess
-            if (line.is_gold)
-            {
-                stats = constants.stats_gold;
-            }
-            else if (line.is_gold_system1)
-            {
-                stats = constants.stats_gold_system1;
-            }
-            else if (line.is_silver)
-            {
-                stats = constants.stats_silver;
-            }
-            else if (line.is_silver_system1)
-            {
-                stats = constants.stats_silver_system1;
-            }
-            else if (line.is_regular)
-            {
-                stats = constants.stats_regular;
-            }
-            else if (line.is_regular_system1)
-            {
-                stats = constants.stats_regular_system1;
-            }
-            else if (line.is_goalkeeper)
-            {
-                stats = constants.stats_goalkeeper;
-            }
-            else if (line.is_goalkeeper_system1)
-            {
-                stats = constants.stats_goalkeeper_system1;
-            }
+            if (line.statType == 1) { stats = constants.stats_system1[line.ptype]; }
+            else if (line.statType == 2) { stats = constants.stats[line.ptype]; }
             else
             {
                 // Player has invalid stats, disregard Prowess check
@@ -316,22 +114,17 @@ namespace AATF
 
             foreach (player line in squad.team_players)
             {
-                if (line.is_gold)
+                if (line.ptype == 3)
                 {
                     golds++;
                 }
 
-                if (line.is_silver)
+                if (line.ptype == 2)
                 {
                     silvers++;
                 }
-
-                if (line.is_regular)
-                {
-                    regulars++;
-                }
-
-                if(line.is_goalkeeper)
+                // count regular and gk players together
+                if (line.ptype == 0 || line.ptype == 1)
                 {
                     regulars++;
                 }

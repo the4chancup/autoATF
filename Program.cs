@@ -56,22 +56,13 @@ namespace AATF
     {
         public const uint players_per_team = 23;
 
-        public const uint stats_gold = 99;
-        public const uint stats_silver = 88;
-        public const uint stats_regular = 77;
-        public const uint stats_goalkeeper = 77;
-
+        // indexed by ptype values: 0 - GK, 1 - regular, 2 - silver, 3 - gold
+        public static readonly uint[] stats = { 77, 77, 88, 99 };
         // Summer 2015 Ruleset - All players above 189cm in height get a variable stat nerf
-        public const uint stats_gold_system1 = 94;
-        public const uint stats_silver_system1 = 84;
-        public const uint stats_regular_system1 = 74;
-        public const uint stats_goalkeeper_system1 = 74;
+        public static readonly uint[] stats_system1 = { 74, 74, 84, 94 };
 
-        public const uint form_gold = 8;
-        public const uint form_silver = 8;
-        public const uint form_regular = 4;
-        public const uint form_goalkeeper = 4;
-
+        public static readonly uint[] form = { 4, 4, 8, 8 };
+        
         public const uint weakfoot_accuracy = 2;
         public const uint weakfoot_usage = 2;
 
@@ -80,15 +71,12 @@ namespace AATF
         public const uint weakfoot_usage_manlet = 4;
 
         public const uint injury_tolerance = 3;
+        
+        public static readonly uint[] card_limits = { 1, 2, 3, 4 };
+        public static readonly uint[] free_trick_cards = { 0, 0, 1, 1 };
 
-        public const uint cards_limit_goalkeeper = 1;
-        public const uint cards_limit_regular = 2;
-        public const uint cards_limit_silver = 3;
-        public const uint cards_limit_gold = 4;
-
+        // defines which cards qualify for the free trick cards
         public static readonly uint[] trick_cards = { 0, 1, 2, 3, 4, 5, 16 };
-        public const uint trick_cards_silver = 1;
-        public const uint trick_cards_gold = 1;
 
         public const uint positions_minimum_gk = 2;
         public const uint positions_minimum_def = 2;
