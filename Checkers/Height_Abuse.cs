@@ -176,7 +176,7 @@ namespace AATF
                 // if either of these is set, give an error
                 if (error != null)
                 {
-                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too " + error + " players in the " + constants.height_brackets[i] + "-" + prevBracket + " bracket");
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too " + error + " players in the " + constants.height_brackets[i] + "-" + (prevBracket-1) + " bracket");
                     Console.WriteLine("\t\t (Has " + brackets[i] + " out of " + system.limits[i] + ")");
                     variables.errors++;
                 }

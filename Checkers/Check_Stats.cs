@@ -39,27 +39,27 @@ namespace AATF
                     line.ptype = i;
                     line.statType = 2;
                 }
-                else if (line.Goalkeeping == constants.stats[i] &&
-                   line.Dribbling == constants.stats[i] &&
-                   line.Finishing == constants.stats[i] &&
-                   line.Low_Pass == constants.stats[i] &&
-                   line.Lofted_Pass == constants.stats[i] &&
-                   line.Header == constants.stats[i] &&
-                   line.Controlled_Spin == constants.stats[i] &&
-                   line.Saving == constants.stats[i] &&
-                   line.Clearing == constants.stats[i] &&
-                   line.Reflexes == constants.stats[i] &&
-                   line.Body_Balance == constants.stats[i] &&
-                   line.Physical_Contact == constants.stats[i] &&
-                   line.Kicking_Power == constants.stats[i] &&
-                   line.Explosive_Power == constants.stats[i] &&
-                   line.Jump == constants.stats[i] &&
-                   line.Ball_Control == constants.stats[i] &&
-                   line.Ball_Winning == constants.stats[i] &&
-                   line.Coverage == constants.stats[i] &&
-                   line.Place_Kicking == constants.stats[i] &&
-                   line.Speed == constants.stats[i] &&
-                   line.Stamina == constants.stats[i] &&
+                else if (line.Goalkeeping == constants.stats_system1[i] &&
+                   line.Dribbling == constants.stats_system1[i] &&
+                   line.Finishing == constants.stats_system1[i] &&
+                   line.Low_Pass == constants.stats_system1[i] &&
+                   line.Lofted_Pass == constants.stats_system1[i] &&
+                   line.Header == constants.stats_system1[i] &&
+                   line.Controlled_Spin == constants.stats_system1[i] &&
+                   line.Saving == constants.stats_system1[i] &&
+                   line.Clearing == constants.stats_system1[i] &&
+                   line.Reflexes == constants.stats_system1[i] &&
+                   line.Body_Balance == constants.stats_system1[i] &&
+                   line.Physical_Contact == constants.stats_system1[i] &&
+                   line.Kicking_Power == constants.stats_system1[i] &&
+                   line.Explosive_Power == constants.stats_system1[i] &&
+                   line.Jump == constants.stats_system1[i] &&
+                   line.Ball_Control == constants.stats_system1[i] &&
+                   line.Ball_Winning == constants.stats_system1[i] &&
+                   line.Coverage == constants.stats_system1[i] &&
+                   line.Place_Kicking == constants.stats_system1[i] &&
+                   line.Speed == constants.stats_system1[i] &&
+                   line.Stamina == constants.stats_system1[i] &&
                    (i == 0 || line.position != 0)) // goalkeepers must be checked on i=0
                 {
                     line.ptype = i;

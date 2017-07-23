@@ -92,12 +92,12 @@ namespace AATF
         public const uint height_minimum_pes = 148;
 
         // height brackets as array
-        public static readonly uint[] height_brackets = { 200, 195, 190, 185, 180, 175, 155 };
+        public static readonly uint[] height_brackets = { 200, 195, 190, 185, 180, 155 };
 
         // Height Abuse System 1
-        public static readonly heightsystem system1 = new heightsystem(1, new uint[] { 1, 1, 2, 6, 7, 6, 0 }, 4220, 999, "all players above 189cm have a variable stats nerf");
+        public static readonly heightsystem system1 = new heightsystem(1, new uint[] { 1, 1, 2, 6, 7, 6 }, 4220, 999, "all players above 189cm have a variable stats nerf");
         // Height Abuse System 2
-        public static readonly heightsystem system2 = new heightsystem(2, new uint[] { 0, 0, 0, 10, 7, 6, 0 }, 4185, 5, "no players above 189cm; two A positions for players below 180cm");
+        public static readonly heightsystem system2 = new heightsystem(2, new uint[] { 0, 0, 0, 10, 7, 6 }, 4185, 5, "no players above 189cm; two A positions for players below 180cm");
 
         // Age Abuse
         public const uint age_maximum = 50;
