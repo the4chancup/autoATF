@@ -14,7 +14,8 @@ namespace AATF
 
             uint system1_stats = 0;
 
-            List<player> multipos = new List<player>();
+            List<player> special = new List<player>();
+            bool multipos = false;
 
             // Check heights of all players in team
             foreach (player line in squad.team_players)
@@ -31,13 +32,14 @@ namespace AATF
                 }
 
                 // Check for any System1 Stats Players
-                if (line.is_gold_system1 == true || line.is_silver_system1 == true || line.is_regular_system1 == true || line.is_goalkeeper_system1 == true)
+                if (line.statType == 1)
                 {
                     system1_stats++;
                 }
 
-                // Check for any System2 multipos players
-                if (line.is_multipos_system2) { multipos.Add(line); }
+                // Check for any players with system-specific rules
+                if (line.is_multipos_system2) { special.Add(line); multipos = true; }
+                else if (line.is_goalkeeper) { special.Add(line);  }
 
                 // Check height against bracket boundaries, increment number of players in the bracket
                 if (line.height > constants.height_maximum_pes)
@@ -117,20 +119,10 @@ namespace AATF
             }
             // If no players have nerfed stats, check if any players have multiple positions.
             // If any players have been added to the multipos list, assume this is System 2, because they probably wouldn't assign multiple positions.
-            else if (multipos.Count > 0)
+            else if (multipos)
             {
                 system = constants.system2;
                 Console.WriteLine("Assuming Height Abuse System " + system.id + " (" + system.desc + ")\n");
-                
-                // Check multi-position players to see if they fall in the right height brackets
-                foreach (player line in multipos)
-                {
-                    if (line.height_bracket < system.min_double_a_bracket)
-                    {
-                        Console.WriteLine("HEIGHT ABUSE:\n" + line.id + "\t" + line.name + " has two positions but height above maximum of " + (constants.height_brackets[system.min_double_a_bracket]+4));
-                        variables.errors++;
-                    }
-                }
             }
 
             // If no players have the System1 Stats or System2 positions, it could still be System1 but the manager hasn't applied the stats nerf
@@ -168,6 +160,13 @@ namespace AATF
             }
 
             // check system limits
+            // check total height
+            if (height_total > system.total_limit)
+            {
+                Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " (System " + system.id + ") has total height " + height_total + " but maximum permitted is " + system.total_limit);
+                variables.errors++;
+            }
+            // check players in bracket
             uint prevBracket = constants.height_maximum_4cc;
             for (uint i = 0; i < system.limits.Length; ++i )
             {
@@ -179,11 +178,29 @@ namespace AATF
                 // if either of these is set, give an error
                 if (error != null)
                 {
-                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too " + error + " players in the " + constants.height_brackets[i] + "-" + prevBracket + " bracket");
+                    Console.WriteLine("HEIGHT ABUSE:\n" + squad.team_name + " has too " + error + " players in the " + constants.height_brackets[i] + "-" + (prevBracket-1) + " bracket");
                     Console.WriteLine("\t\t (Has " + brackets[i] + " out of " + system.limits[i] + ")");
                     variables.errors++;
                 }
                 prevBracket = constants.height_brackets[i];
+            }
+            // Check multi-position players to see if they fall in the right height brackets
+            foreach (player line in special)
+            {
+                if ( line.is_multipos_system2 && line.height_bracket < system.min_double_a_bracket )
+                {
+                    string msg = "";
+                    if (system.min_double_a_bracket >= 999) { msg = "system does not permit multiple positions."; }
+                    else { msg = "height above maximum of " + (constants.height_brackets[system.min_double_a_bracket] + 4); }
+
+                    Console.WriteLine("HEIGHT ABUSE:\n" + line.id + "\t" + line.name + " has two positions but "+msg);
+                    variables.errors++;
+                }
+                if ( line.is_goalkeeper && line.height > system.max_gk_height )
+                {
+                    Console.WriteLine("HEIGHT ABUSE:\n" + line.id + "\t" + line.name + " is above goalkeeper maximum height of " + system.max_gk_height);
+                    variables.errors++;
+                }
             }
         }
     }
