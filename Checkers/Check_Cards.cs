@@ -34,6 +34,7 @@ namespace AATF
                 {
                     trickCount += (uint)line.Cards_Skills[i];
                     trickIndex++;
+                    if (line.Cards_Skills[i] == 1) { Console.WriteLine(line.id + "\t" + line.name + " has trick card " + constants.skill_names[i]); }
                 }
                 // otherwise add card to total
                 else { standard_cards += (uint)line.Cards_Skills[i]; }
@@ -77,12 +78,24 @@ namespace AATF
             }
 
             // add any extraneous trick cards to standard cards
-            if (trickCount - constants.free_trick_cards[line.ptype] > 0) { standard_cards += trickCount - constants.free_trick_cards[line.ptype]; }
+            if (trickCount > constants.free_trick_cards[line.ptype])
+            {
+                standard_cards += trickCount - constants.free_trick_cards[line.ptype];
+                Console.WriteLine(line.id + "\t" + line.name + " has " + (trickCount-constants.free_trick_cards[line.ptype]) + " excess trick cards; only one will be counted.");
+            }
             // Check the card counts
             if (standard_cards > constants.card_limits[line.ptype])
             {
                 Console.WriteLine(line.id + "\t" + line.name + " has too many Cards (Has " + standard_cards + ", can only have " + constants.card_limits[line.ptype] + " max)");
+                if (line.Cards_Skills[25] == 1 && standard_cards == constants.card_limits[line.ptype] + 1 && !line.is_captain )
+                {
+                    Console.WriteLine(line.id + "\t" + line.name + " has Captaincy and is one card over limit, but is not marked as captain.");
+                }
                 variables.errors++;
+            }
+            else if (standard_cards < constants.card_minimum[line.ptype])
+            {
+                Console.WriteLine(line.id + "\t" + line.name + " has too few Cards (Has " + standard_cards + ", must have at least " + constants.card_minimum[line.ptype] + " max)");
             }
         }
 

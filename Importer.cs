@@ -1256,7 +1256,8 @@ namespace AATF
 
                     teamplan teamplan_entry = new teamplan();
                     teamplan_entry.team_id = teamID;
-                    teamplan_entry.captain_index = BitConverter.ToChar(chunk, pos) + 1;
+                    // don't use BitConverter, access single byte directly
+                    teamplan_entry.captain_index = chunk[pos] + 1;
 
                     teamplan_table.Add(teamID, teamplan_entry);
                 }
